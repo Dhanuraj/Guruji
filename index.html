@@ -19,6 +19,9 @@
   --txt:#f0ebff;--txt2:#9d8ec0;--txt3:#5a5070;
   --r:14px;--font:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace;
   --nav:64px;--hdr:58px;--shadow:0 8px 32px #00000066;
+  --hero1:#1e0a3c;--hero2:#2d1060;
+  --hero-txt:#f0ebff;--hero-txt2:#9d8ec0;
+  --hm-bg:#ffffff0a;--hm-bdr:#ffffff0a;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;background:var(--bg);}
@@ -75,16 +78,16 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
 
 /* ── HERO ── */
 .hero{margin:14px;padding:20px;border-radius:20px;
-  background:linear-gradient(135deg,#1e0a3c,#2d1060);border:1px solid var(--acc)33;position:relative;overflow:hidden;
-  box-shadow:0 8px 32px #00000055,0 1px 0 #ffffff0a inset;}
-.hero::before{content:'🎵';position:absolute;right:-10px;top:-10px;font-size:90px;opacity:.06;transform:rotate(15deg);}
-.hero-lbl{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.hero-val{font-size:36px;font-weight:900;font-family:var(--mono);color:var(--txt);letter-spacing:-1px;}
-.hero-sub{font-size:12px;color:var(--txt3);margin-top:4px;}
+  background:linear-gradient(135deg,var(--hero1),var(--hero2));border:1px solid var(--acc)33;position:relative;overflow:hidden;
+  box-shadow:0 8px 32px #00000033,0 1px 0 #ffffff0a inset;}
+.hero::before{content:'🎵';position:absolute;right:-10px;top:-10px;font-size:90px;opacity:.07;transform:rotate(15deg);}
+.hero-lbl{font-size:11px;color:var(--hero-txt2);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.hero-val{font-size:36px;font-weight:900;font-family:var(--mono);color:var(--hero-txt);letter-spacing:-1px;}
+.hero-sub{font-size:12px;color:var(--hero-txt2);margin-top:4px;}
 .hero-row{display:flex;gap:10px;margin-top:14px;}
-.hm{flex:1;background:#ffffff0a;border-radius:12px;padding:10px;text-align:center;border:1px solid #ffffff0a;}
+.hm{flex:1;background:var(--hm-bg);border-radius:12px;padding:10px;text-align:center;border:1px solid var(--hm-bdr);}
 .hm-v{font-size:18px;font-weight:800;font-family:var(--mono);}
-.hm-l{font-size:10px;color:var(--txt3);margin-top:2px;font-weight:600;}
+.hm-l{font-size:10px;color:var(--hero-txt2);margin-top:2px;font-weight:600;}
 
 /* ── STAT GRID ── */
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 4px;}
@@ -145,13 +148,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
 .sc-mid{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center;}
 .bdg{font-size:10px;font-weight:800;padding:2px 8px;border-radius:6px;display:inline-block;}
 .bdg.paid{background:var(--grn)18;color:var(--grn);border:1px solid var(--grn)33;}
-.bdg.due{background:#ff820018;color:#ff8200;border:1px solid #ff820044;}
+.bdg.due{background:#ff820018;color:var(--ylw);border:1px solid #ff820044;}
 .bdg.adv{background:var(--acc)18;color:var(--acc);border:1px solid var(--acc)33;}
 .bdg.pkg{background:var(--gold)18;color:var(--gold);border:1px solid var(--gold)33;}
 .sc-pending{display:flex;align-items:center;gap:8px;margin-top:6px;background:#ff820010;
   border:1px solid #ff820030;border-radius:8px;padding:6px 10px;}
-.sc-pending-amt{font-family:var(--mono);font-size:13px;font-weight:800;color:#ff8200;}
-.sc-pending-meta{font-size:11px;color:#ff8200aa;font-weight:600;}
+.sc-pending-amt{font-family:var(--mono);font-size:13px;font-weight:800;color:var(--ylw);}
+.sc-pending-meta{font-size:11px;color:var(--ylw)aa;font-weight:600;}
 .sc-advance{display:flex;align-items:center;gap:8px;margin-top:6px;background:var(--acc)0d;
   border:1px solid var(--acc)33;border-radius:8px;padding:6px 10px;}
 .sc-advance-amt{font-family:var(--mono);font-size:13px;font-weight:800;color:var(--acc);}
@@ -485,6 +488,18 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
   #stuList{grid-template-columns:1fr 1fr 1fr;}
   #todayClasses{grid-template-columns:1fr 1fr 1fr;}
 }
+/* ── THEME CARDS ── */
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.theme-card{border-radius:12px;overflow:hidden;border:2px solid var(--bdr);cursor:pointer;transition:transform .15s,border-color .15s;}
+.theme-card:active{transform:scale(.94);}
+.theme-card.active{border-color:var(--acc);}
+.theme-preview{height:52px;display:flex;flex-direction:column;padding:6px 7px;gap:4px;}
+.theme-mini-bar{height:7px;border-radius:3px;width:50%;}
+.theme-mini-card{border-radius:4px;padding:4px 5px;flex:1;display:flex;flex-direction:column;gap:3px;}
+.theme-mini-line{height:4px;border-radius:2px;}
+.theme-mini-dot{height:5px;border-radius:2px;width:32%;}
+.theme-label{font-size:10px;font-weight:700;text-align:center;padding:4px;background:var(--surf2);color:var(--txt2);}
+
 /* ── CUSTOM TIME PICKER ── */
 .tp-wrap{position:relative;}
 .tp-display{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:11px;
@@ -584,8 +599,6 @@ input[type="time"]{
       <div class="stt g"><div class="stt-l">Advances</div><div class="stt-v g" id="da">₹0</div><div class="stt-s">held balance</div></div>
       <div class="stt b"><div class="stt-l">This Month</div><div class="stt-v b" id="dm">0</div><div class="stt-s">classes done</div></div>
     </div>
-    <div class="s-hdr"><div class="s-ttl">🕐 Today's Availability</div><div class="s-act" onclick="nav('set');setTimeout(()=>document.getElementById('avail-section').scrollIntoView({behavior:'smooth'}),200)">Edit →</div></div>
-    <div id="availCard" style="padding:0 14px 4px;"></div>
     <div class="s-hdr"><div class="s-ttl">🎵 Today's Classes</div><div class="s-act" onclick="nav('sch')">Full Schedule →</div></div>
     <div id="feeBanner" style="padding:0 14px"></div>
     <div id="todayClasses"></div>
@@ -684,6 +697,18 @@ input[type="time"]{
     </div>
   </div>
 
+  <!-- ══ BATCHES ══ -->
+  <div class="pg" id="pg-batch">
+    <div class="s-hdr">
+      <div class="s-ttl">🎭 Batches</div>
+      <div class="s-act" onclick="openAddBatch()">+ New Batch</div>
+    </div>
+    <div id="batchList"></div>
+    <div class="empty" id="batchEmpty" style="display:none">
+      <div class="empty-ic">🎭</div>No batches yet.<br>Tap + to create one.
+    </div>
+  </div>
+
   <!-- ══ REPORTS ══ -->
   <div class="pg" id="pg-rep">
     <div class="rep-tabs">
@@ -703,6 +728,13 @@ input[type="time"]{
   <!-- ══ SETTINGS ══ -->
   <div class="pg" id="pg-set">
     <div class="s-hdr"><div class="s-ttl">⚙️ Settings</div></div>
+
+    <!-- THEME -->
+    <div class="set-section">
+      <div class="set-sec-hdr">🎨 Theme</div>
+      <div style="padding:12px 14px;" id="themeGrid"></div>
+    </div>
+
     <div class="set-section" id="avail-section">
       <div class="set-sec-hdr">🕐 Teaching Availability</div>
       <div style="padding:10px 14px;font-size:11px;color:var(--txt3);border-bottom:1px solid var(--bdr);">Set your available teaching hours for each day. Shown on dashboard.</div>
@@ -714,8 +746,8 @@ input[type="time"]{
 
     <div class="set-section">
       <div class="set-sec-hdr">🎤 Teacher Info</div>
-      <div class="set-row col"><div><div class="set-lbl">Teacher Name</div><div class="set-sub">Shown in WhatsApp messages</div></div><input class="set-in" id="s-teacher" placeholder="e.g. Ravi Sir" oninput="settingsChanged()"/></div>
-      <div class="set-row col"><div><div class="set-lbl">Academy / Class Name</div></div><input class="set-in" id="s-inst" placeholder="e.g. Swar Sangam Academy" oninput="settingsChanged()"/></div>
+      <div class="set-row col"><div><div class="set-lbl">Teacher Name</div><div class="set-sub">Shown in WhatsApp messages</div></div><input class="set-in" id="s-teacher" placeholder="e.g. Guri Ji" oninput="settingsChanged()"/></div>
+      <div class="set-row col"><div><div class="set-lbl">Academy / Class Name</div></div><input class="set-in" id="s-inst" placeholder="e.g. Sai Spandana College of Music, Bangalore" oninput="settingsChanged()"/></div>
       <div class="set-row col"><div><div class="set-lbl">Your WhatsApp Number</div></div><input class="set-in" id="s-mynum" type="tel" inputmode="numeric" placeholder="9876543210" oninput="settingsChanged()"/></div>
       <div class="set-row col"><div><div class="set-lbl">Currency Symbol</div></div><input class="set-in" id="s-curr" placeholder="₹" style="max-width:80px" oninput="settingsChanged()"/></div>
     </div>
@@ -760,8 +792,8 @@ input[type="time"]{
 <div class="bnav">
   <button class="nb on" id="nb-dash"    onclick="nav('dash')"><span class="ni">🏠</span>Home</button>
   <button class="nb"    id="nb-stu"     onclick="nav('stu')"><span class="ni">👥</span>Students</button>
+  <button class="nb"    id="nb-batch"   onclick="nav('batch')"><span class="ni">🎭</span>Batches</button>
   <button class="nb"    id="nb-sch"     onclick="nav('sch')"><span class="ni">📅</span>Schedule</button>
-  <button class="nb"    id="nb-rep"     onclick="nav('rep')"><span class="ni">📊</span>Reports</button>
   <button class="nb"    id="nb-set"     onclick="nav('set')"><span class="ni">⚙️</span>Settings</button>
 </div>
 </div>
@@ -850,6 +882,34 @@ input[type="time"]{
   </div>
 </div>
 
+<!-- ADD BATCH MODAL -->
+<div class="ov" id="addBatchOv">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-ttl" id="addBatchTitle">Create Batch <button class="mcls" onclick="closeOv('addBatchOv')">✕ close</button></div>
+    <div class="fg"><label class="fl">Batch Name *</label><input class="fi" id="batch-name" placeholder="e.g. Beginner Batch, Bhajan Group…"/></div>
+    <div class="fg"><label class="fl">Subject / Style</label><input class="fi" id="batch-subj" placeholder="e.g. Hindustani Classical, Bhajan…"/></div>
+    <div class="fg"><label class="fl">Schedule</label><input class="fi" id="batch-days" placeholder="e.g. Mon, Wed, Fri · 6:00 PM"/></div>
+    <div class="fg"><label class="fl">Max Students</label><input class="fi" id="batch-max" type="number" placeholder="e.g. 8" inputmode="numeric"/></div>
+    <div class="fg">
+      <label class="fl">Add Students</label>
+      <div id="batch-stu-checkboxes" style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto;background:var(--surf2);border:1px solid var(--bdr);border-radius:11px;padding:10px 12px;"></div>
+    </div>
+    <button class="fsave" onclick="saveBatch()">Save Batch</button>
+    <button class="fcancel" onclick="closeOv('addBatchOv')">Cancel</button>
+  </div>
+</div>
+
+<!-- BATCH ATTENDANCE MODAL -->
+<div class="ov" id="batchAttOv">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-ttl" id="batchAttTitle">Batch Attendance <button class="mcls" onclick="closeOv('batchAttOv')">✕ close</button></div>
+    <div id="batchAttList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
+    <button class="fsave" onclick="saveBatchAtt()">Save Attendance ✓</button>
+  </div>
+</div>
+
 <!-- RESCHEDULE MODAL -->
 <div class="ov" id="reschedOv">
   <div class="modal">
@@ -925,7 +985,7 @@ input[type="time"]{
 <div id="namasteOv" style="
   position:fixed;inset:0;z-index:99999;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#0d0a1a,#1e0a3c,#0d0a1a);
+  background:var(--bg);
   cursor:pointer;
   animation:namasteIn .4s cubic-bezier(.22,.68,0,1.1);
 " onclick="closeNameste()">
@@ -970,6 +1030,8 @@ const DB={
   sh(d){localStorage.setItem('sp_hw',JSON.stringify(d));},
   gpr(){return JSON.parse(localStorage.getItem('sp_prog')||'[]');},
   spr(d){localStorage.setItem('sp_prog',JSON.stringify(d));},
+  gb(){return JSON.parse(localStorage.getItem('sp_batches')||'[]');},
+  sb(d){localStorage.setItem('sp_batches',JSON.stringify(d));},
   nid(a){return a.length?Math.max(...a.map(x=>x.id))+1:1;}
 };
 
@@ -1030,7 +1092,7 @@ function timeRange(t, durMins){
   const durLabel=dur>=60?(Math.floor(dur/60)+'h'+(dur%60?' '+dur%60+'m':'')):(dur+'m');
   return fmt12(t)+' – '+fmt12(endTime)+' · '+durLabel;
 }
-function todayStr(){return now.toISOString().split('T')[0];}
+function todayStr(){return new Date().toISOString().split('T')[0];}
 
 // ══════════════════════════════════════════════════
 //  FINANCE
@@ -1092,8 +1154,14 @@ function isCurrentMonthUnpaid(s){
 // Within 7 days of month end — remind for next month
 function isUpcomingReminder(s){
   if(s.fee_type!=='monthly') return false;
-  const daysLeft=new Date(curY,curM,0).getDate()-now.getDate(); // days left in month
-  return daysLeft<=7;
+  const daysLeft=new Date(curY,curM,0).getDate()-now.getDate();
+  if(daysLeft>7) return false;
+  // Check if next month fee already paid
+  const nextM=curM%12+1, nextY=curM===12?curY+1:curY;
+  const paidNext=DB.gp().filter(p=>p.student_id===s.id&&p.type==='fee'&&p.month===nextM&&p.year===nextY).reduce((a,p)=>a+p.amount,0);
+  const adv=totalAdvance(s.id);
+  const fee=parseFloat(s.monthly_fee)||0;
+  return (paidNext+adv)<fee;
 }
 
 // Next month fee amount due
@@ -1113,7 +1181,7 @@ function feeStatus(s){
 // ══════════════════════════════════════════════════
 //  NAVIGATION
 // ══════════════════════════════════════════════════
-const NAV_MAP={dash:'nb-dash',stu:'nb-stu',sch:'nb-sch',rep:'nb-rep',alerts:'nb-rep',set:'nb-set'};
+const NAV_MAP={dash:'nb-dash',stu:'nb-stu',batch:'nb-batch',sch:'nb-sch',rep:'nb-rep',alerts:'nb-rep',set:'nb-set'};
 function nav(p){
   document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));
@@ -1125,6 +1193,7 @@ function nav(p){
   prevPg=curPg; curPg=p;
   if(p==='dash')  renderDash();
   if(p==='stu')   renderStu();
+  if(p==='batch') renderBatches();
   if(p==='sch')   renderSch();
   if(p==='rep')   {repTab='month';document.querySelectorAll('.rtab').forEach((t,i)=>t.classList.toggle('on',i===0));renderRep();}
   if(p==='alerts')renderAlerts();
@@ -1193,7 +1262,7 @@ function renderDash(){
   const upcomingReminders=stus.filter(s=>s.fee_type==='monthly'&&isUpcomingReminder(s)&&!isCurrentMonthUnpaid(s));
   let bannerHtml='';
   if(unpaidToday.length){
-    bannerHtml+=`<div style="margin:0 0 10px;padding:12px 14px;background:linear-gradient(135deg,#3a0e0e,#280808);border:1px solid var(--red)55;border-radius:14px;display:flex;align-items:flex-start;gap:10px;">
+    bannerHtml+=`<div style="margin:0 0 10px;padding:12px 14px;background:var(--surf);border:1px solid var(--red)55;border-radius:14px;display:flex;align-items:flex-start;gap:10px;">
       <div style="font-size:22px;flex-shrink:0">🚫</div>
       <div style="flex:1">
         <div style="font-size:13px;font-weight:800;color:var(--red);margin-bottom:4px">Fee Pending — Cannot Start Class!</div>
@@ -1209,7 +1278,7 @@ function renderDash(){
   }
   if(upcomingReminders.length){
     const daysLeft=new Date(curY,curM,0).getDate()-now.getDate();
-    bannerHtml+=`<div style="margin:0 0 10px;padding:12px 14px;background:linear-gradient(135deg,#2a1a00,#1a1000);border:1px solid var(--gold)44;border-radius:14px;display:flex;align-items:flex-start;gap:10px;">
+    bannerHtml+=`<div style="margin:0 0 10px;padding:12px 14px;background:var(--surf);border:1px solid var(--gold)44;border-radius:14px;display:flex;align-items:flex-start;gap:10px;">
       <div style="font-size:22px;flex-shrink:0">⏰</div>
       <div style="flex:1">
         <div style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:4px">Collect Next Month's Fee — ${daysLeft} days left!</div>
@@ -1229,6 +1298,33 @@ function renderDash(){
     todayEl.innerHTML='<div class="empty" style="padding:20px"><div class="empty-ic" style="font-size:32px">📅</div>No classes today</div>';
   } else {
     todayEl.innerHTML=todayClasses.map(c=>{
+      if(c.batch_id){
+        // Batch class
+        const b=DB.gb().find(x=>x.id===c.batch_id);
+        const members=stus.filter(s=>b?.student_ids?.includes(s.id));
+        return`<div class="today-card online" style="border-left:3px solid var(--acc)">
+          <div class="tc-top">
+            <div style="display:flex;align-items:center;gap:9px;flex:1">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--acc)20;border:2px solid var(--acc)44;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎭</div>
+              <div>
+                <div class="tc-name">${esc(b?b.name:'Batch Class')}</div>
+                <div style="font-size:11px;color:var(--txt3)">${members.map(m=>m.student_name).join(', ')||'No members'}</div>
+              </div>
+            </div>
+            <div class="tc-time">${timeRange(c.time,c.duration)}</div>
+          </div>
+          <div class="tc-tags">
+            <span class="bdg" style="background:var(--acc)18;color:var(--acc);border:1px solid var(--acc)33;font-size:10px;">🎭 Group</span>
+            <span class="bdg ${c.attended===true?'paid':c.attended===false?'due':''}" style="font-size:10px">${c.attended===true?'✅ Done':c.attended===false?'❌ Absent':'⏳ Upcoming'}</span>
+          </div>
+          <div class="tc-btns">
+            ${c.meet_link&&c.type==='online'?`<button class="tc-btn meet" onclick="event.stopPropagation();openMeet('${esc(c.meet_link)}')">🎥 Join</button>`:''}
+            <button class="tc-btn att" onclick="event.stopPropagation();openBatchAtt(${c.id},${c.batch_id})">✅ Attendance</button>
+            <button class="tc-btn" style="border-color:var(--ylw)44;color:var(--ylw)" onclick="event.stopPropagation();openResched(${c.id})">📅 Reschedule</button>
+            <button class="tc-btn wa" onclick="event.stopPropagation();batchWA(${c.batch_id})">📱 WA All</button>
+          </div>
+        </div>`;
+      }
       const s=stus.find(x=>x.id===c.student_id);
       if(!s) return '';
       return todayClassCard(c,s,cfg);
@@ -1241,13 +1337,13 @@ function renderDash(){
     duesEl.innerHTML='<div class="empty" style="padding:20px"><div class="empty-ic" style="font-size:32px">✅</div>All dues clear!</div>';
   } else {
     duesEl.innerHTML=dueStus.map(s=>`
-      <div class="today-card" style="border-left:3px solid #ff8200;" onclick="goDetail(${s.id})">
+      <div class="today-card" style="border-left:3px solid var(--ylw);" onclick="goDetail(${s.id})">
         <div class="tc-top">
           <div style="display:flex;align-items:center;gap:9px;flex:1">
             ${avatarHTML(s,36)}
             <div class="tc-name">${esc(s.student_name)}</div>
           </div>
-          <div style="font-family:var(--mono);font-size:13px;font-weight:800;color:#ff8200">${curr}${NR(calcDue(s))}</div>
+          <div style="font-family:var(--mono);font-size:13px;font-weight:800;color:var(--ylw)">${curr}${NR(calcDue(s))}</div>
         </div>
         <div class="tc-btns">
           <button class="tc-btn" style="border-color:var(--grn)44;color:var(--grn)" onclick="event.stopPropagation();openPay(${s.id})">💰 Collect</button>
@@ -1307,7 +1403,9 @@ function renderStu(){
   const list=stus.filter(s=>
     (s.student_name||'').toLowerCase().includes(q)||
     (s.contact_name||'').toLowerCase().includes(q)||
-    (s.mobile_number||'').includes(q)
+    (s.mobile_number||'').includes(q)||
+    (s.level||'').toLowerCase().includes(q)||
+    (s.class_days||'').toLowerCase().includes(q)
   ).filter(s=>{
     if(chipFilter==='all') return true;
     if(chipFilter==='due') return calcDue(s)>0;
@@ -1449,9 +1547,13 @@ function renderSchContent(){
     return;
   }
   list.innerHTML=cls.map(c=>{
-    const s=stus.find(x=>x.id===c.student_id);
-    if(!s) return '';
-    const meetLink=c.meet_link||s.meet_link||'';
+    const isBatch=!!c.batch_id;
+    const b=isBatch?DB.gb().find(x=>x.id===c.batch_id):null;
+    const s=!isBatch?stus.find(x=>x.id===c.student_id):null;
+    if(!isBatch&&!s) return '';
+    const meetLink=c.meet_link||(s?.meet_link||'');
+    const label=isBatch?b?.name||'Batch':s.student_name;
+    const members=isBatch?stus.filter(x=>b?.student_ids?.includes(x.id)):[];
     return`<div class="sch-slot ${c.type||'online'}">
       <div class="ss-top">
         <div class="ss-time">${timeRange(c.time, c.duration)}</div>
@@ -1459,44 +1561,60 @@ function renderSchContent(){
           <span class="bdg ${c.attended===true?'paid':c.attended===false?'due':'pkg'}" style="font-size:10px">
             ${c.attended===true?'✅ Present':c.attended===false?'❌ Absent':'⏳ Upcoming'}
           </span>
+          ${isBatch?`<span class="bdg" style="background:var(--acc)18;color:var(--acc);border:1px solid var(--acc)33;font-size:10px;">🎭 Batch</span>`:''}
           <button style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer;padding:2px" onclick="deleteClass(${c.id})">🗑</button>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
-        ${avatarHTML(s,34)}
+        ${isBatch
+          ?`<div style="width:34px;height:34px;border-radius:50%;background:var(--acc)20;border:2px solid var(--acc)44;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎭</div>`
+          :avatarHTML(s,34)}
         <div>
-          <div class="ss-name" onclick="goDetail(${s.id})" style="cursor:pointer">${esc(s.student_name)}</div>
+          <div class="ss-name" onclick="${isBatch?'':(`goDetail(${s.id})`)};" style="cursor:${isBatch?'default':'pointer'}">${esc(label)}</div>
+          ${isBatch&&members.length?`<div style="font-size:11px;color:var(--txt3)">${members.map(m=>m.student_name).join(', ')}</div>`:''}
           ${c.topic?`<div style="font-size:11px;color:var(--txt3)">${esc(c.topic)}</div>`:''}
         </div>
       </div>
       <div class="ss-btns">
         ${meetLink&&c.type==='online'?`<button class="tc-btn meet" onclick="openMeet('${esc(meetLink)}')">🎥 Join</button>`:''}
-        <button class="tc-btn att" onclick="openAtt(${c.id},${s.id})">✅ Attend</button>
-        <button class="tc-btn hw" onclick="openHW(${s.id})">📝 HW</button>
+        ${isBatch
+          ?`<button class="tc-btn att" onclick="openBatchAtt(${c.id},${c.batch_id})">✅ Attendance</button>`
+          :`<button class="tc-btn att" onclick="openAtt(${c.id},${s.id})">✅ Attend</button>`}
+        ${!isBatch?`<button class="tc-btn hw" onclick="openHW(${s.id})">📝 HW</button>`:''}
         <button class="tc-btn" style="border-color:var(--ylw)44;color:var(--ylw);background:var(--ylw)0d" onclick="openResched(${c.id})">📅 Reschedule</button>
-        <button class="tc-btn wa" onclick="sendWA(${s.id},'class',{time:'${c.time}',meet:'${meetLink}'})">📱 Remind</button>
+        ${isBatch
+          ?`<button class="tc-btn wa" onclick="batchWA(${c.batch_id})">📱 WA All</button>`
+          :`<button class="tc-btn wa" onclick="sendWA(${s.id},'class',{time:'${c.time}',meet:'${meetLink}'})">📱 Remind</button>`}
       </div>
     </div>`;
   }).join('');
 }
 
-function openAddClass(){
+function openAddClass(batchId=null){
   const stus=DB.gs().filter(s=>s.active);
-  // Reset searchable dropdown
   document.getElementById('cls-stu-search').value='';
   document.getElementById('cls-stu').value='';
   document.getElementById('cls-stu-list').style.display='none';
-  renderStuDropdown(stus);
-  // Prefill first student if exists
-  if(stus.length){
-    document.getElementById('cls-stu').value=stus[0].id;
-    document.getElementById('cls-stu-search').value=stus[0].student_name;
-  }
-  document.getElementById('cls-date').value=selDay||todayStr();
   document.getElementById('cls-time').value='';
   document.getElementById('tp-cls-time-val').textContent='Select time';
   document.getElementById('tp-cls-time-val').className='tp-display-val empty';
   delete TP_STATE['cls-time'];
+  // If batchId passed, store it
+  document.getElementById('addClassOv').dataset.batchId=batchId||'';
+  if(batchId){
+    const b=DB.gb().find(x=>x.id===batchId);
+    document.querySelector('#addClassOv .modal-ttl').childNodes[0].textContent=`Add Class — ${b?b.name:'Batch'} `;
+    // Pre-select first batch member in search
+    if(b?.student_ids?.length){
+      const s=stus.find(x=>b.student_ids.includes(x.id));
+      if(s){document.getElementById('cls-stu').value=s.id;document.getElementById('cls-stu-search').value=s.student_name;}
+    }
+  } else {
+    document.querySelector('#addClassOv .modal-ttl').childNodes[0].textContent='Add Class Slot ';
+    renderStuDropdown(stus);
+    if(stus.length){document.getElementById('cls-stu').value=stus[0].id;document.getElementById('cls-stu-search').value=stus[0].student_name;}
+  }
+  document.getElementById('cls-date').value=selDay||todayStr();
   document.getElementById('cls-dur').value='45';
   document.getElementById('cls-type').value='online';
   document.getElementById('cls-meet').value='';
@@ -1561,15 +1679,17 @@ document.addEventListener('click',function(e){
 function saveClass(){
   const sid=parseInt(document.getElementById('cls-stu').value);
   const time=document.getElementById('cls-time').value;
-  if(!sid){toast('Select a student','er');return;}
-  if(!time){toast('Enter class time','er');return;}
+  const batchId=parseInt(document.getElementById('addClassOv').dataset.batchId)||null;
+  if(!sid&&!batchId){toast('Select a student','er');return;}
+  if(!time){toast('Select class time','er');return;}
   const cls=DB.gc();
-  cls.push({id:DB.nid(cls),student_id:sid,date:document.getElementById('cls-date').value,
+  cls.push({id:DB.nid(cls),student_id:sid||null,batch_id:batchId||null,
+    date:document.getElementById('cls-date').value,
     time,duration:document.getElementById('cls-dur').value,
     type:document.getElementById('cls-type').value,
     meet_link:document.getElementById('cls-meet').value,
     topic:document.getElementById('cls-topic').value,
-    attended:null});
+    attended:null,batch_att:{}});
   DB.sc(cls);closeOv('addClassOv');toast('Class added ✓','ok');renderSch();
 }
 
@@ -1751,8 +1871,6 @@ function saveHW(){
     created:new Date().toLocaleDateString('en-IN'),done:false};
   hw.push(newHW);DB.sh(hw);
   closeOv('hwOv');toast('Homework saved ✓','ok');
-  // Send WA
-  sendHWWA(newHW.id,hwStuId);
   if(document.getElementById('pg-det').classList.contains('on')) renderDet(hwStuId);
 }
 
@@ -1772,7 +1890,6 @@ function sendHWWA(hwId,sid){
   if(!h||!s) return;
   const cfg=getSettings();
   let msg=(cfg.tpl_hw||TPL_DEFAULTS.hw)
-    .replaceAll('{student}',s.student_name)
     .replaceAll('{student}',s.student_name)
     .replaceAll('{homework}',h.text)
     .replaceAll('{due}',h.due_date||'ASAP')
@@ -1868,7 +1985,8 @@ function openPay(sid){
   const due=calcDue(s);
   document.getElementById('payName').textContent=s.student_name;
   document.getElementById('payDue').textContent=due>0?curr+NR(due)+' due':'No dues';
-  document.getElementById('pamt').value=due>0?due:'';
+  const advBal=totalAdvance(sid);
+  document.getElementById('pamt').value=due>0?Math.max(0,due-advBal)>0?Math.max(0,due-advBal):due:'';
   document.getElementById('ptype').value='fee';
   document.getElementById('pmode').value='Cash';
   document.getElementById('pnote').value='';
@@ -1893,7 +2011,6 @@ function savePay(){
   if(sendConf) setTimeout(()=>{
     const cfg=getSettings();const curr=cfg.curr||'₹';
     let msg=(cfg.tpl_confirm||TPL_DEFAULTS.confirm)
-      .replaceAll('{student}',s.student_name)
       .replaceAll('{student}',s.student_name)
       .replaceAll('{amount}',NR(amount))
       .replaceAll('{currency}',curr)
@@ -1985,7 +2102,7 @@ function renderAlerts(){
   }
   // ── SECTION 1: Cannot start class today ──
   if(blockToday.length){
-    html+=`<div class="rcard" style="border:1px solid var(--red)77;margin-top:14px;background:linear-gradient(135deg,#2a0808cc,#1a0505cc)">
+    html+=`<div class="rcard" style="border:1px solid var(--red)77;margin-top:14px;background:var(--surf)">
       <div class="rttl" style="color:var(--red)">🚫 Cannot Start Class Today — Fee Unpaid (${blockToday.length})</div>
       <div style="font-size:12px;color:var(--txt3);margin-bottom:12px">Collect ${MO[curM-1]} fee before starting today's class!</div>
       ${blockToday.map(s=>`<div class="rrow" onclick="goDetail(${s.id})" style="cursor:pointer">
@@ -2013,13 +2130,13 @@ function renderAlerts(){
   }
   // ── SECTION 3: All outstanding dues ──
   if(dues.length){
-    html+=`<div class="rcard" style="border-color:#ff820055;margin-top:14px">
-      <div class="rttl" style="color:#ff8200">💰 Fee Due — Class on Hold (${dues.length})</div>
+    html+=`<div class="rcard" style="border-color:var(--ylw)55;margin-top:14px">
+      <div class="rttl" style="color:var(--ylw)">💰 Fee Due — Class on Hold (${dues.length})</div>
       ${dues.map(s=>`<div class="rrow" onclick="goDetail(${s.id})" style="cursor:pointer">
         <div><div class="rn">${esc(s.student_name)}</div>
         <div class="rs">${isCurrentMonthUnpaid(s)?MO[curM-1]+' fee unpaid':''}${calcDue(s)>0?' · Overall: '+curr+NR(calcDue(s)):''}</div></div>
         <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-          <div style="font-family:var(--mono);font-size:13px;font-weight:800;color:#ff8200">${curr}${NR(calcDue(s)||parseFloat(s.monthly_fee)||0)}</div>
+          <div style="font-family:var(--mono);font-size:13px;font-weight:800;color:var(--ylw)">${curr}${NR(calcDue(s)||parseFloat(s.monthly_fee)||0)}</div>
           <div style="display:flex;gap:5px">
             <button class="tc-btn" style="font-size:10px;padding:4px 8px;border-color:var(--grn)44;color:var(--grn)" onclick="event.stopPropagation();openPay(${s.id})">💰 Collect</button>
             <button class="tc-btn wa" style="font-size:10px;padding:4px 8px" onclick="event.stopPropagation();sendWA(${s.id},'fee')">📱 Remind</button>
@@ -2187,6 +2304,7 @@ function renderSettings(){
   document.getElementById('si-stus').textContent=DB.gs().filter(s=>s.active).length;
   document.getElementById('si-pays').textContent=DB.gp().length;
   renderAvailSettings();
+  renderThemeGrid();
   settingsDirty=false;updateSaveBtn();
 }
 
@@ -2218,7 +2336,7 @@ function saveSettings(){
 // ══════════════════════════════════════════════════
 function exportData(){
   const data={version:1,exported:new Date().toISOString(),
-    students:DB.gs(),payments:DB.gp(),classes:DB.gc(),homework:DB.gh(),progress:DB.gpr(),settings:getSettings()};
+    students:DB.gs(),payments:DB.gp(),classes:DB.gc(),homework:DB.gh(),progress:DB.gpr(),batches:DB.gb(),settings:getSettings()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -2237,7 +2355,7 @@ function importData(input){
       document.getElementById('delMsg').textContent=`Import backup from ${data.exported?data.exported.split('T')[0]:'?'}? This replaces all data.`;
       document.getElementById('delConfirmBtn').onclick=()=>{
         DB.ss(data.students||[]);DB.sp(data.payments||[]);DB.sc(data.classes||[]);
-        DB.sh(data.homework||[]);DB.spr(data.progress||[]);
+        DB.sh(data.homework||[]);DB.spr(data.progress||[]);DB.sb(data.batches||[]);
         if(data.settings) saveSettingsObj(data.settings);
         closeOv('delOv');toast('Imported ✓','ok');input.value='';nav('dash');
       };
@@ -2249,7 +2367,7 @@ function importData(input){
 
 function confirmClearAll(){
   document.getElementById('delMsg').textContent='Delete ALL data? Cannot be undone.';
-  document.getElementById('delConfirmBtn').onclick=()=>{localStorage.clear();closeOv('delOv');toast('Cleared');nav('dash');};
+  document.getElementById('delConfirmBtn').onclick=()=>{const th=localStorage.getItem('sp_theme');localStorage.clear();if(th)localStorage.setItem('sp_theme',th);closeOv('delOv');toast('Cleared');nav('dash');loadSavedTheme();};
   document.getElementById('delOv').classList.add('on');
 }
 
@@ -2257,7 +2375,7 @@ function confirmClearAll(){
 //  MODAL HELPERS
 // ══════════════════════════════════════════════════
 function closeOv(id){document.getElementById(id).classList.remove('on');}
-['payOv','hwOv','progOv','attOv','waOv','delOv','addClassOv','reschedOv'].forEach(id=>{
+['payOv','hwOv','progOv','attOv','waOv','delOv','addClassOv','reschedOv','addBatchOv','batchAttOv'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(e){if(e.target===this)closeOv(id);});
 });
 
@@ -2297,7 +2415,7 @@ if(DB.gs().length===0){
     {id:1,student_id:1,text:'Practise Yaman Alaap 15 minutes daily. Focus on slow meend on Ga note.',due_date:todayStr(),created:'15/03/2025',done:false},
     {id:2,student_id:2,text:'Sa Re Ga Ma Pa Dha Ni — all 3 octaves without break. 20 repetitions.',due_date:'',created:'14/03/2025',done:true},
   ]);
-  saveSettingsObj({...SET_DEFAULT,teacher:'Ravi Sir',inst:'Swar Sangam Academy',curr:'₹'});
+  saveSettingsObj({...SET_DEFAULT,teacher:'Guri Ji',inst:'Sai Spandana College of Music, Bangalore',curr:'₹'});
 }
 
 // ══════════════════════════════════════════════════
@@ -2312,78 +2430,67 @@ function buildTPPanel(id){
   const hours=Array.from({length:12},(_,i)=>i+1);
   const mins=Array.from({length:12},(_,i)=>i*5);
   panel.innerHTML=`
-    <div class="tp-row">
+    <div class="tp-row" onclick="event.stopPropagation()">
       <div class="tp-col">
         <div class="tp-lbl">Hour</div>
         <div class="tp-scroll" id="tp-${id}-h">
-          ${hours.map(h=>`<div class="tp-item${st.h===h?' sel':''}" onclick="tpSet('${id}','h',${h})">${h}</div>`).join('')}
+          ${hours.map(h=>`<div class="tp-item${st.h===h?' sel':''}" onclick="event.stopPropagation();tpSet('${id}','h',${h})">${h}</div>`).join('')}
         </div>
       </div>
       <div class="tp-col">
         <div class="tp-sep">:</div>
         <div class="tp-scroll" id="tp-${id}-m">
-          ${mins.map(m=>`<div class="tp-item${st.m===m?' sel':''}" onclick="tpSet('${id}','m',${m})">${m<10?'0'+m:m}</div>`).join('')}
+          ${mins.map(m=>`<div class="tp-item${st.m===m?' sel':''}" onclick="event.stopPropagation();tpSet('${id}','m',${m})">${m<10?'0'+m:m}</div>`).join('')}
         </div>
       </div>
       <div class="tp-col">
         <div class="tp-lbl">AM/PM</div>
         <div class="tp-ampm">
-          <div class="tp-ampm-btn${st.ampm==='AM'?' sel':''}" onclick="tpSet('${id}','ampm','AM')">AM</div>
-          <div class="tp-ampm-btn${st.ampm==='PM'?' sel':''}" onclick="tpSet('${id}','ampm','PM')">PM</div>
+          <div class="tp-ampm-btn${st.ampm==='AM'?' sel':''}" onclick="event.stopPropagation();tpSet('${id}','ampm','AM')">AM</div>
+          <div class="tp-ampm-btn${st.ampm==='PM'?' sel':''}" onclick="event.stopPropagation();tpSet('${id}','ampm','PM')">PM</div>
         </div>
       </div>
     </div>
-    <button class="tp-done" onclick="tpConfirm('${id}')">Set Time ✓</button>`;
-  // Scroll selected into view
+    <button class="tp-done" onclick="event.stopPropagation();tpConfirm('${id}')">Set Time ✓</button>`;
   setTimeout(()=>{
-    const hSel=document.querySelector(`#tp-${id}-h .sel`);
-    const mSel=document.querySelector(`#tp-${id}-m .sel`);
-    if(hSel) hSel.scrollIntoView({block:'center',behavior:'smooth'});
-    if(mSel) mSel.scrollIntoView({block:'center',behavior:'smooth'});
-  },50);
+    const hSel=panel.querySelector('.tp-scroll .sel');
+    if(hSel) hSel.scrollIntoView({block:'nearest',behavior:'smooth'});
+  },30);
 }
 
 function toggleTP(id){
   const panel=document.getElementById(`tp-${id}-panel`);
-  const displayEl=document.getElementById(`tp-${id}-panel`)?.previousElementSibling
-    || document.querySelector(`[onclick="toggleTP('${id}')"]`);
   if(!panel) return;
   const isOpen=panel.classList.contains('open');
-  // Close all others
   document.querySelectorAll('.tp-panel.open').forEach(p=>p.classList.remove('open'));
   document.querySelectorAll('.tp-display.open').forEach(d=>d.classList.remove('open'));
   if(!isOpen){
     buildTPPanel(id);
-    panel.classList.add('open');
-    // Position panel below the display button
+    // Position first, then show
     const btn=document.querySelector(`[onclick="toggleTP('${id}')"]`);
     if(btn){
       btn.classList.add('open');
       const rect=btn.getBoundingClientRect();
       const spaceBelow=window.innerHeight-rect.bottom;
-      if(spaceBelow>200){
-        panel.style.top=(rect.bottom+6)+'px';
-        panel.style.left=rect.left+'px';
-      } else {
-        panel.style.top=(rect.top-220)+'px';
-        panel.style.left=rect.left+'px';
-      }
-      // Clamp to viewport width
-      const maxLeft=window.innerWidth-270;
-      panel.style.left=Math.min(Math.max(10,rect.left),maxLeft)+'px';
+      panel.style.top=(spaceBelow>240?rect.bottom+6:rect.top-250)+'px';
+      panel.style.left=Math.min(Math.max(10,rect.left),window.innerWidth-280)+'px';
     }
+    panel.classList.add('open');
   }
 }
 
 function tpSet(id, field, val){
   if(!TP_STATE[id]) TP_STATE[id]={h:12,m:0,ampm:'AM'};
   TP_STATE[id][field]=val;
+  // Rebuild panel but keep position
+  const panel=document.getElementById(`tp-${id}-panel`);
+  const top=panel?.style.top, left=panel?.style.left;
   buildTPPanel(id);
+  if(panel&&top){ panel.style.top=top; panel.style.left=left; }
 }
 
 function tpConfirm(id){
   const st=TP_STATE[id]||{h:12,m:0,ampm:'AM'};
-  // Convert to 24h for storage
   let h24=st.h;
   if(st.ampm==='AM'&&st.h===12) h24=0;
   else if(st.ampm==='PM'&&st.h!==12) h24=st.h+12;
@@ -2395,18 +2502,18 @@ function tpConfirm(id){
     display.textContent=st.h+':'+(st.m<10?'0':'')+st.m+' '+st.ampm;
     display.classList.remove('empty');
   }
-  // Close panel
   const panel=document.getElementById(`tp-${id}-panel`);
-  const disp=panel?.previousElementSibling;
+  const btn=document.querySelector(`[onclick="toggleTP('${id}')"]`);
   if(panel) panel.classList.remove('open');
-  if(disp) disp.classList.remove('open');
+  if(btn) btn.classList.remove('open');
 }
 
 function setTPValue(id, val24){
-  // val24 = "HH:MM"
   if(!val24) return;
   const[h,m]=val24.split(':');
   let hr=+h, mn=+m;
+  // Round mn to nearest 5
+  mn=Math.round(mn/5)*5; if(mn===60) mn=55;
   const ampm=hr<12?'AM':'PM';
   const h12=hr%12||12;
   TP_STATE[id]={h:h12,m:mn,ampm};
@@ -2417,13 +2524,184 @@ function setTPValue(id, val24){
   }
 }
 
-// Close time picker when clicking outside
+// Close picker on outside click - but not when clicking inside panel
 document.addEventListener('click',function(e){
-  if(!e.target.closest('.tp-wrap')){
+  if(!e.target.closest('.tp-wrap')&&!e.target.closest('.tp-panel')){
     document.querySelectorAll('.tp-panel.open').forEach(p=>p.classList.remove('open'));
     document.querySelectorAll('.tp-display.open').forEach(d=>d.classList.remove('open'));
   }
 });
+
+// ══════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  BATCHES
+// ══════════════════════════════════════════════════
+let editBatchId=null, batchAttClsId=null, batchAttBatchId=null;
+
+function renderBatches(){
+  const batches=DB.gb();
+  const el=document.getElementById('batchList');
+  const empty=document.getElementById('batchEmpty');
+  if(!batches.length){if(el)el.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  const stus=DB.gs();
+  const cfg=getSettings();
+  const colors=['#c084fc','#34d399','#60a5fa','#f59e0b','#f87171'];
+  el.innerHTML=batches.map(b=>{
+    const members=stus.filter(s=>b.student_ids?.includes(s.id));
+    const col=colors[b.id%colors.length];
+    return`<div style="background:var(--surf);border:1px solid var(--bdr);border-left:3px solid ${col};border-radius:var(--r);padding:13px;margin:0 14px 12px;box-shadow:0 4px 16px #00000022;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <div>
+          <div style="font-size:16px;font-weight:800;">${esc(b.name)}</div>
+          <div style="font-size:11px;color:var(--txt3);margin-top:2px;">${b.subject?esc(b.subject)+' · ':''}${members.length} student${members.length!==1?'s':''}${b.max_students?' · max '+b.max_students:''}${b.schedule?' · '+esc(b.schedule):''}</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="sc-btn" style="font-size:11px;padding:5px 9px" onclick="openEditBatch(${b.id})">✏️</button>
+          <button class="sc-btn" style="font-size:11px;padding:5px 9px;border-color:var(--red)44;color:var(--red)" onclick="deleteBatch(${b.id})">🗑</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+        ${members.map(s=>avatarHTML(s,32)).join('')}
+        ${!members.length?`<span style="font-size:12px;color:var(--txt3)">No students yet — tap ✏️ to add</span>`:''}
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;">
+        <button class="sc-btn" style="border-color:var(--acc)44;color:var(--acc)" onclick="scheduleBatchClass(${b.id})">📅 Schedule Class</button>
+        <button class="sc-btn wa" onclick="batchWA(${b.id})">📱 WA All</button>
+        <button class="sc-btn" style="border-color:var(--grn)44;color:var(--grn)" onclick="collectBatchFees(${b.id})">💰 Collect Fees</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddBatch(){
+  editBatchId=null;
+  document.getElementById('addBatchTitle').textContent='Create Batch';
+  ['batch-name','batch-subj','batch-days','batch-max'].forEach(id=>document.getElementById(id).value='');
+  renderBatchStudentCheckboxes([]);
+  document.getElementById('addBatchOv').classList.add('on');
+}
+
+function openEditBatch(id){
+  editBatchId=id;
+  const b=DB.gb().find(x=>x.id===id);if(!b)return;
+  document.getElementById('addBatchTitle').textContent='Edit Batch';
+  document.getElementById('batch-name').value=b.name||'';
+  document.getElementById('batch-subj').value=b.subject||'';
+  document.getElementById('batch-days').value=b.schedule||'';
+  document.getElementById('batch-max').value=b.max_students||'';
+  renderBatchStudentCheckboxes(b.student_ids||[]);
+  document.getElementById('addBatchOv').classList.add('on');
+}
+
+function renderBatchStudentCheckboxes(selected=[]){
+  const stus=DB.gs().filter(s=>s.active);
+  document.getElementById('batch-stu-checkboxes').innerHTML=stus.map(s=>`
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:4px 0;">
+      <input type="checkbox" id="bsc-${s.id}" ${selected.includes(s.id)?'checked':''}
+        style="width:16px;height:16px;accent-color:var(--acc);cursor:pointer;flex-shrink:0;"/>
+      ${avatarHTML(s,28)}
+      <div><div style="font-size:13px;font-weight:700;">${esc(s.student_name)}</div>
+      <div style="font-size:11px;color:var(--txt3);">${s.level||''}</div></div>
+    </label>`).join('');
+}
+
+function saveBatch(){
+  const name=(document.getElementById('batch-name').value||'').trim();
+  if(!name){toast('Enter batch name','er');return;}
+  const stus=DB.gs().filter(s=>s.active);
+  const selectedIds=stus.filter(s=>document.getElementById(`bsc-${s.id}`)?.checked).map(s=>s.id);
+  const batches=DB.gb();
+  const obj={name,subject:document.getElementById('batch-subj').value.trim(),
+    schedule:document.getElementById('batch-days').value.trim(),
+    max_students:parseInt(document.getElementById('batch-max').value)||null,
+    student_ids:selectedIds};
+  if(editBatchId){const i=batches.findIndex(b=>b.id===editBatchId);batches[i]={...batches[i],...obj};}
+  else{obj.id=DB.nid(batches);batches.push(obj);}
+  DB.sb(batches);closeOv('addBatchOv');toast('Batch saved ✓','ok');renderBatches();
+}
+
+function deleteBatch(id){
+  document.getElementById('delMsg').textContent='Delete this batch? Students are not deleted.';
+  document.getElementById('delConfirmBtn').onclick=()=>{DB.sb(DB.gb().filter(b=>b.id!==id));closeOv('delOv');toast('Deleted');renderBatches();};
+  document.getElementById('delOv').classList.add('on');
+}
+
+function scheduleBatchClass(batchId){
+  nav('sch');
+  setTimeout(()=>openAddClass(batchId),200);
+}
+
+function batchWA(batchId){
+  const b=DB.gb().find(x=>x.id===batchId);if(!b)return;
+  const stus=DB.gs().filter(s=>b.student_ids?.includes(s.id));
+  const cfg=getSettings();
+  if(!stus.length){toast('No students in batch','er');return;}
+  const bname=b.name, bsubj=b.subject||'', bsch=b.schedule||'';
+  const tname=cfg.teacher||'Teacher', tinst=cfg.inst||'';
+  const msg='Hello! 🎵\nReminder for *'+bname+'*'+(bsubj?' ('+bsubj+')':'')+'.'+(bsch?'\n📅 Schedule: '+bsch:'')+'\nPlease be on time 🙏\n\n— '+tname+(tinst?', '+tinst:'');
+  document.getElementById('waPreviewText').textContent=msg+'\n\n(Will send to: '+stus.map(s=>s.student_name).join(', ')+')';
+  document.getElementById('waConfirmBtn').onclick=()=>{
+    closeOv('waOv');
+    stus.forEach((st,i)=>{
+      let n=String(st.mobile_number||'').replace(/\D/g,'');
+      if(!n.startsWith('91')) n='91'+n;
+      setTimeout(()=>window.open('https://wa.me/'+n+'?text='+encodeURIComponent(msg),'_blank'),i*800);
+    });
+    toast('Opening WA for '+stus.length+' students 📱','ok');
+  };
+  document.getElementById('waOv').classList.add('on');
+}
+
+function collectBatchFees(batchId){
+  const b=DB.gb().find(x=>x.id===batchId);if(!b)return;
+  const stus=DB.gs().filter(s=>b.student_ids?.includes(s.id)&&calcDue(s)>0);
+  if(!stus.length){toast('All fees clear in this batch ✓','ok');return;}
+  openPay(stus[0].id);
+  if(stus.length>1) toast(`${stus.length} students have dues`);
+}
+
+const pendingBatchAtt={};
+function openBatchAtt(clsId,batchId){
+  batchAttClsId=clsId;batchAttBatchId=batchId;
+  const b=DB.gb().find(x=>x.id===batchId);
+  const members=DB.gs().filter(s=>b?.student_ids?.includes(s.id));
+  const c=DB.gc().find(x=>x.id===clsId);
+  document.getElementById('batchAttTitle').textContent=`Attendance — ${b?b.name:'Batch'}`;
+  Object.keys(pendingBatchAtt).forEach(k=>delete pendingBatchAtt[k]);
+  document.getElementById('batchAttList').innerHTML=members.map(s=>{
+    const att=c?.batch_att?.[s.id];
+    if(att!==undefined) pendingBatchAtt[s.id]=att;
+    return`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr);">
+      <div style="display:flex;align-items:center;gap:10px;">${avatarHTML(s,34)}<div style="font-size:13px;font-weight:700;">${esc(s.student_name)}</div></div>
+      <div style="display:flex;gap:6px;">
+        <button id="att-p-${s.id}" class="sc-btn" style="${att===true?'border-color:var(--grn);color:var(--grn);background:var(--grn)10':''}" onclick="setBatchAtt(${s.id},true)">✅</button>
+        <button id="att-a-${s.id}" class="sc-btn" style="${att===false?'border-color:var(--red)44;color:var(--red);background:var(--red)0d':''}" onclick="setBatchAtt(${s.id},false)">❌</button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('batchAttOv').classList.add('on');
+}
+
+function setBatchAtt(stuId,present){
+  pendingBatchAtt[stuId]=present;
+  const pb=document.getElementById(`att-p-${stuId}`);
+  const ab=document.getElementById(`att-a-${stuId}`);
+  if(pb){pb.style.borderColor=present?'var(--grn)':'var(--bdr)';pb.style.color=present?'var(--grn)':'var(--txt2)';pb.style.background=present?'var(--grn)10':'';}
+  if(ab){ab.style.borderColor=!present?'var(--red)':'var(--bdr)';ab.style.color=!present?'var(--red)':'var(--txt2)';ab.style.background=!present?'var(--red)0d':'';}
+}
+
+function saveBatchAtt(){
+  const cls=DB.gc();
+  const i=cls.findIndex(c=>c.id===batchAttClsId);
+  if(i>=0){
+    if(!cls[i].batch_att) cls[i].batch_att={};
+    Object.assign(cls[i].batch_att,pendingBatchAtt);
+    cls[i].attended=Object.values(cls[i].batch_att).some(v=>v===true);
+  }
+  DB.sc(cls);closeOv('batchAttOv');toast('Attendance saved ✓','ok');
+  renderSch();renderDash();
+}
 
 // ══════════════════════════════════════════════════
 //  RESCHEDULE
@@ -2470,8 +2748,10 @@ function saveResched(){
   if(notify){
     const s=DB.gs().find(x=>x.id===c.student_id);
     const cfg=getSettings();
-    const msg=`Hello ${s?s.student_name:''}! 📅\nYour class has been rescheduled.\n\nOriginal: ${oldDate} at ${fmt12(oldTime)}\nNew: ${newDate} at ${fmt12(newTime)}${reason?'\n\nReason: '+reason:''}\n\nSorry for the inconvenience 🙏\n— ${cfg.teacher||'Teacher'}`;
-    sendWAMsg(s?s.mobile_number:'',msg);
+    if(s&&s.mobile_number){
+      const msg='Hello '+s.student_name+'! 📅\nYour class has been rescheduled.\n\nOriginal: '+oldDate+' at '+fmt12(oldTime)+'\nNew: '+newDate+' at '+fmt12(newTime)+(reason?'\n\nReason: '+reason:'')+'\n\nSorry for the inconvenience 🙏\n— '+(cfg.teacher||'Teacher');
+      setTimeout(()=>sendWAMsg(s.mobile_number,msg),300);
+    }
   }
   selDay=newDate;renderSch();renderDash();
 }
@@ -2525,62 +2805,179 @@ function renderAvailCard(){
   const avail=getAvailability();
   const todayDow=now.getDay();
   const a=avail[todayDow];
-  if(!a||!a.on){
-    el.innerHTML=`<div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;">
-      <div style="font-size:26px;">😴</div>
-      <div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--txt2)">Not teaching today</div>
-      <div style="font-size:11px;color:var(--txt3);margin-top:2px">${DAYS_FULL[todayDow]} — no hours set</div></div>
-      <button onclick="nav('set');setTimeout(()=>document.getElementById('avail-section').scrollIntoView({behavior:'smooth'}),200)"
-        style="padding:6px 12px;border-radius:8px;background:var(--acc)18;border:1px solid var(--acc)44;color:var(--acc);font-size:11px;cursor:pointer;font-weight:700;">Set →</button>
-    </div>`;return;
+  const todayCls=DB.gc().filter(c=>c.date===todayStr());
+
+  // If no availability set but has classes, infer from class times
+  let from=a?.from, to=a?.to, isSet=a?.on;
+  if(!isSet){
+    if(todayCls.length){
+      // Infer window from earliest class start to latest class end
+      const toMinsLocal=t=>{const[h,m]=t.split(':');return +h*60+ +m;};
+      const starts=todayCls.map(c=>toMinsLocal(c.time));
+      const ends=todayCls.map(c=>toMinsLocal(c.time)+(parseInt(c.duration)||45));
+      const minS=Math.min(...starts), maxE=Math.max(...ends);
+      const pad=m=>(m<10?'0':'')+Math.floor(m/60)+':'+(m%60<10?'0':'')+(m%60);
+      from=pad(Math.max(0,minS-30));
+      to=pad(Math.min(1439,maxE+30));
+      isSet=true;
+    } else {
+      // Truly free day — no classes, no availability set
+      el.innerHTML=`<div style="background:var(--surf);border:1px solid var(--grn)44;border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;">
+        <div style="font-size:26px;">🟢</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:800;color:var(--grn)">Completely Free Today!</div>
+          <div style="font-size:11px;color:var(--txt3);margin-top:2px">${DAYS_FULL[todayDow]} — no classes scheduled</div>
+        </div>
+        <button onclick="nav('set');setTimeout(()=>document.getElementById('avail-section').scrollIntoView({behavior:'smooth'}),200)"
+          style="padding:6px 12px;border-radius:8px;background:var(--acc)18;border:1px solid var(--acc)44;color:var(--acc);font-size:11px;cursor:pointer;font-weight:700;flex-shrink:0;">Set Hours →</button>
+      </div>`;
+      return;
+    }
   }
+
   const toMins=t=>{const[h,m]=t.split(':');return +h*60+ +m;};
   const toHHMM=m=>{const h=Math.floor(m/60);const mn=m%60;return(h%12||12)+':'+(mn<10?'0':'')+mn+(h<12?' AM':' PM');};
-  const fromMins=toMins(a.from),endMins=toMins(a.to);
-  const totalMins=endMins-fromMins;
-  const todayCls=[...DB.gc().filter(c=>c.date===todayStr())].sort((x,y)=>x.time>y.time?1:-1);
-  const bookedMins=todayCls.reduce((s,c)=>s+(parseInt(c.duration)||45),0);
-  const freeMins=Math.max(0,totalMins-bookedMins);
+  const durStr=m=>m>=60?(Math.floor(m/60)+'h'+(m%60?' '+m%60+'m':'')):(m+'m');
+  const fromMins=toMins(from), endMins=toMins(to);
+  const totalMins=Math.max(0,endMins-fromMins);
+  if(!totalMins){el.innerHTML='';return;}
+
+  // Classes clamped to window, sorted
+  const clsList=[...todayCls]
+    .map(c=>{
+      const cs=toMins(c.time),dur=parseInt(c.duration)||45,ce=cs+dur;
+      const s=DB.gs().find(x=>x.id===c.student_id);
+      return{from:Math.max(cs,fromMins),to:Math.min(ce,endMins),label:s?s.student_name:'Class'};
+    })
+    .filter(c=>c.from<c.to)
+    .sort((x,y)=>x.from-y.from);
+
+  // Merge overlapping
+  const merged=[];
+  clsList.forEach(c=>{
+    if(merged.length&&c.from<merged[merged.length-1].to){
+      merged[merged.length-1].to=Math.max(merged[merged.length-1].to,c.to);
+      merged[merged.length-1].label+=' & '+c.label;
+    } else merged.push({...c});
+  });
 
   // Build slots
   const slots=[];let cursor=fromMins;
-  todayCls.forEach(c=>{
-    const cs=toMins(c.time),ce=cs+(parseInt(c.duration)||45);
-    const s=DB.gs().find(x=>x.id===c.student_id);
-    if(cs>cursor) slots.push({type:'free',from:cursor,to:cs});
-    slots.push({type:'class',from:cs,to:ce,label:s?s.student_name:'Class'});
-    cursor=ce;
+  merged.forEach(c=>{
+    if(c.from>cursor) slots.push({type:'free',from:cursor,to:c.from});
+    slots.push({type:'class',from:c.from,to:c.to,label:c.label});
+    cursor=c.to;
   });
   if(cursor<endMins) slots.push({type:'free',from:cursor,to:endMins});
 
-  el.innerHTML=`<div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:14px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+  const freeMins=slots.filter(s=>s.type==='free').reduce((sum,s)=>sum+(s.to-s.from),0);
+  const busyMins=totalMins-freeMins;
+  const allFree=merged.length===0;
+
+  el.innerHTML=`<div style="background:var(--surf);border:1px solid ${allFree?'var(--grn)44':'var(--bdr)'};border-radius:14px;padding:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${allFree?'0':'12px'};">
       <div>
-        <div style="font-size:13px;font-weight:800;">🕐 ${fmt12(a.from)} — ${fmt12(a.to)}</div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:2px;">${DAYS_FULL[todayDow]} · ${Math.floor(totalMins/60)}h ${totalMins%60?totalMins%60+'m':''} total · ${todayCls.length} class${todayCls.length!==1?'es':''}</div>
+        <div style="font-size:13px;font-weight:800;">🕐 ${fmt12(from)} — ${fmt12(to)}</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:2px;">${DAYS_FULL[todayDow]} · ${durStr(totalMins)} total${busyMins>0?' · '+durStr(busyMins)+' busy':''}</div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:20px;font-weight:900;font-family:var(--mono);color:var(--grn);">${Math.floor(freeMins/60)}h${freeMins%60?' '+freeMins%60+'m':''}</div>
-        <div style="font-size:10px;color:var(--txt3);">free today</div>
+        <div style="font-size:20px;font-weight:900;font-family:var(--mono);color:${freeMins>0?'var(--grn)':'var(--red)'};">${freeMins>0?durStr(freeMins):'Full'}</div>
+        <div style="font-size:10px;color:var(--txt3);">${allFree?'🟢 completely free':freeMins>0?'free today':'fully booked'}</div>
       </div>
     </div>
-    <!-- Timeline bar -->
-    <div style="display:flex;height:26px;border-radius:8px;overflow:hidden;gap:2px;margin-bottom:12px;">
+    ${!allFree?`
+    <div style="display:flex;height:24px;border-radius:8px;overflow:hidden;gap:2px;margin-bottom:12px;">
       ${slots.map(sl=>{const w=Math.max(1,Math.round((sl.to-sl.from)/totalMins*100));
-        return`<div style="flex:${w};background:${sl.type==='free'?'var(--grn)20':'var(--acc)33'};border:1px solid ${sl.type==='free'?'var(--grn)55':'var(--acc)66'};border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;min-width:3px;">
-          ${(sl.to-sl.from)>18?`<span style="font-size:9px;font-weight:700;color:${sl.type==='free'?'var(--grn)':'var(--acc)'};padding:0 3px;white-space:nowrap;overflow:hidden;">${sl.type==='free'?'Free':esc(sl.label.split(' ')[0])}</span>`:''}
+        return`<div style="flex:${w};min-width:3px;background:${sl.type==='free'?'var(--grn)20':'var(--acc)33'};border:1px solid ${sl.type==='free'?'var(--grn)55':'var(--acc)66'};border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          ${(sl.to-sl.from)>15?`<span style="font-size:9px;font-weight:800;color:${sl.type==='free'?'var(--grn)':'var(--acc)'};padding:0 3px;white-space:nowrap;overflow:hidden;">${sl.type==='free'?'Free':sl.label.split(' ')[0]}</span>`:''}
         </div>`;}).join('')}
     </div>
-    <!-- Slot list -->
     <div style="display:flex;flex-direction:column;gap:6px;">
       ${slots.map(sl=>`<div style="display:flex;align-items:center;gap:8px;">
         <div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:${sl.type==='free'?'var(--grn)':'var(--acc)'};"></div>
-        <div style="font-size:12px;font-weight:700;color:${sl.type==='free'?'var(--grn)':'var(--txt)'};">${toHHMM(sl.from)} – ${toHHMM(sl.to)}</div>
-        <div style="font-size:11px;color:var(--txt3);">${sl.type==='free'?'🟢 Free':'📚 '+esc(sl.label)}</div>
-        <div style="font-size:10px;color:var(--txt3);margin-left:auto;">${Math.floor((sl.to-sl.from)/60)?Math.floor((sl.to-sl.from)/60)+'h ':''} ${(sl.to-sl.from)%60?((sl.to-sl.from)%60)+'m':''}</div>
+        <div style="font-size:12px;font-weight:700;min-width:140px;color:${sl.type==='free'?'var(--grn)':'var(--txt)'};">${toHHMM(sl.from)} – ${toHHMM(sl.to)}</div>
+        <div style="font-size:11px;color:var(--txt3);flex:1;">${sl.type==='free'?'🟢 Free':'📚 '+esc(sl.label)}</div>
+        <div style="font-size:10px;color:var(--txt3);font-family:var(--mono);">${durStr(sl.to-sl.from)}</div>
       </div>`).join('')}
-    </div>
+    </div>`:''}
   </div>`;
+}
+
+// ══════════════════════════════════════════════════
+//  THEMES
+// ══════════════════════════════════════════════════
+const THEMES=[
+  {id:'purple',   name:'Purple Night', dark:true,  bg:'#0d0a1a',surf:'#1a1530',bdr:'#2e2850',acc:'#c084fc',txt:'#f0ebff',txt2:'#9d8ec0',txt3:'#5a5070',grn:'#34d399',red:'#f87171',ylw:'#fbbf24',h1:'#1e0a3c',h2:'#2d1060'},
+  {id:'midnight', name:'Midnight',     dark:true,  bg:'#0a0f1e',surf:'#131d35',bdr:'#253050',acc:'#4f9eff',txt:'#eef2ff',txt2:'#8899bb',txt3:'#4a5878',grn:'#22d48a',red:'#ff5e7a',ylw:'#ffb830',h1:'#0f2a5e',h2:'#1a3a7a'},
+  {id:'obsidian', name:'Obsidian',     dark:true,  bg:'#0d0d0d',surf:'#1a1a1a',bdr:'#2a2a2a',acc:'#7c6fff',txt:'#f0f0f0',txt2:'#888888',txt3:'#555555',grn:'#34d399',red:'#f87171',ylw:'#fbbf24',h1:'#111111',h2:'#1d1d2e'},
+  {id:'forest',   name:'Forest',       dark:true,  bg:'#0d1a12',surf:'#132218',bdr:'#1e3526',acc:'#4ade80',txt:'#ecfdf5',txt2:'#6ee7b7',txt3:'#2d6a4a',grn:'#4ade80',red:'#fb923c',ylw:'#facc15',h1:'#0a2a14',h2:'#0f3d1e'},
+  {id:'slate',    name:'Slate',        dark:true,  bg:'#0f172a',surf:'#1e293b',bdr:'#334155',acc:'#38bdf8',txt:'#f1f5f9',txt2:'#94a3b8',txt3:'#475569',grn:'#34d399',red:'#fb7185',ylw:'#fbbf24',h1:'#0f2040',h2:'#162d50'},
+  {id:'aurora',   name:'Aurora',       dark:true,  bg:'#0f0a1e',surf:'#1a1030',bdr:'#2d1f4a',acc:'#e879f9',txt:'#f5f0ff',txt2:'#a78bfa',txt3:'#5b3d8a',grn:'#34d399',red:'#f472b6',ylw:'#fbbf24',h1:'#1a0838',h2:'#2d1060'},
+  {id:'warm',     name:'Warm Dark',    dark:true,  bg:'#1a1208',surf:'#261b0c',bdr:'#3d2e14',acc:'#f59e0b',txt:'#fef9ee',txt2:'#d4a56a',txt3:'#7a5c30',grn:'#86efac',red:'#fb923c',ylw:'#fcd34d',h1:'#2a1a06',h2:'#3d2810'},
+  {id:'rose',     name:'Rose Dark',    dark:true,  bg:'#1a0a10',surf:'#2a1020',bdr:'#3d1a2e',acc:'#fb7185',txt:'#fff0f3',txt2:'#f9a8b8',txt3:'#7a3050',grn:'#34d399',red:'#fb7185',ylw:'#fbbf24',h1:'#2d0818',h2:'#3d1028'},
+  {id:'ocean',    name:'Ocean',        dark:true,  bg:'#020f1a',surf:'#0a2030',bdr:'#0e3050',acc:'#06b6d4',txt:'#e0f7ff',txt2:'#67c8e8',txt3:'#1a5070',grn:'#34d399',red:'#f87171',ylw:'#fbbf24',h1:'#051828',h2:'#082540'},
+  {id:'light',    name:'Light Clean',  dark:false, bg:'#f8fafc',surf:'#ffffff',bdr:'#e2e8f0',acc:'#6d28d9',txt:'#0f172a',txt2:'#64748b',txt3:'#94a3b8',grn:'#16a34a',red:'#dc2626',ylw:'#d97706',h1:'#ede9fe',h2:'#ddd6fe'},
+  {id:'cream',    name:'Cream',        dark:false, bg:'#fdf8f0',surf:'#fffcf5',bdr:'#e8dcc8',acc:'#c2410c',txt:'#1c1410',txt2:'#78614a',txt3:'#a8917a',grn:'#15803d',red:'#b91c1c',ylw:'#b45309',h1:'#fef3e2',h2:'#fde8c8'},
+  {id:'corporate',name:'Corporate',    dark:false, bg:'#f0f4f8',surf:'#ffffff',bdr:'#cbd5e1',acc:'#1d4ed8',txt:'#1e3a5f',txt2:'#4b6584',txt3:'#94a3b8',grn:'#15803d',red:'#dc2626',ylw:'#b45309',h1:'#dbeafe',h2:'#bfdbfe'},
+];
+
+function applyTheme(id){
+  const t=THEMES.find(x=>x.id===id);if(!t)return;
+  const r=document.documentElement.style;
+  r.setProperty('--bg',   t.bg);
+  r.setProperty('--bg2',  t.bg);
+  r.setProperty('--surf', t.surf);
+  r.setProperty('--surf2',t.surf);
+  r.setProperty('--surf3',t.surf);
+  r.setProperty('--bdr',  t.bdr);
+  r.setProperty('--bdr2', t.bdr);
+  r.setProperty('--acc',  t.acc);
+  r.setProperty('--acc2', t.acc);
+  r.setProperty('--acc3', t.acc);
+  r.setProperty('--txt',  t.txt);
+  r.setProperty('--txt2', t.txt2);
+  r.setProperty('--txt3', t.txt3);
+  r.setProperty('--grn',  t.grn);
+  r.setProperty('--red',  t.red);
+  r.setProperty('--ylw',  t.ylw);
+  // Hero variables
+  r.setProperty('--hero1',    t.h1);
+  r.setProperty('--hero2',    t.h2);
+  r.setProperty('--hero-txt', t.txt);
+  r.setProperty('--hero-txt2',t.txt2);
+  // HM boxes — light on dark, dark on light
+  if(t.dark){
+    r.setProperty('--hm-bg',  '#ffffff0d');
+    r.setProperty('--hm-bdr', '#ffffff0d');
+  } else {
+    r.setProperty('--hm-bg',  t.acc+'18');
+    r.setProperty('--hm-bdr', t.acc+'33');
+  }
+  localStorage.setItem('sp_theme',id);
+  renderThemeGrid();
+  toast('Theme: '+t.name+' ✓','ok');
+}
+
+function renderThemeGrid(){
+  const el=document.getElementById('themeGrid');if(!el)return;
+  const active=localStorage.getItem('sp_theme')||'purple';
+  el.innerHTML=`<div class="theme-grid">${THEMES.map(t=>`
+    <div class="theme-card${t.id===active?' active':''}" onclick="applyTheme('${t.id}')">
+      <div class="theme-preview" style="background:${t.bg}">
+        <div class="theme-mini-bar" style="background:${t.surf};border:1px solid ${t.bdr}"></div>
+        <div class="theme-mini-card" style="background:${t.surf};border:1px solid ${t.bdr}">
+          <div class="theme-mini-line" style="background:${t.txt};opacity:.8;width:70%"></div>
+          <div class="theme-mini-line" style="background:${t.txt2};width:45%"></div>
+          <div class="theme-mini-dot" style="background:${t.acc}"></div>
+        </div>
+      </div>
+      <div class="theme-label">${t.name}</div>
+    </div>`).join('')}</div>`;
+}
+
+function loadSavedTheme(){
+  const id=localStorage.getItem('sp_theme')||'purple';
+  applyTheme(id);
 }
 
 // ══════════════════════════════════════════════════
@@ -2590,6 +2987,7 @@ const cfg0=getSettings();
 document.getElementById('hdrDate').textContent=now.getDate()+' '+MO[curM-1].slice(0,3)+' '+curY;
 document.getElementById('hdrSub').textContent=cfg0.inst||cfg0.teacher||'Singing Teacher';
 selDay=todayStr();
+loadSavedTheme();
 renderDash();
 updateBell();
 
