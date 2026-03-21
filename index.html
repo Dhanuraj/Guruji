@@ -180,16 +180,29 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
 .chip-f:active{transform:scale(.92);}
 
 /* ── SCHEDULE PAGE ── */
-.week-strip{display:flex;gap:6px;padding:12px 14px;overflow-x:auto;scrollbar-width:none;}
-.wd{flex-shrink:0;width:46px;height:62px;border-radius:12px;background:var(--surf);border:1px solid var(--bdr);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:all .15s;}
-.wd.on{background:var(--acc);border-color:var(--acc);box-shadow:0 4px 12px var(--acc)44;}
-.wd:active{transform:scale(.92);}
+.week-strip{display:flex;gap:6px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;}
+.wd{flex:1;min-width:42px;height:66px;border-radius:14px;background:var(--surf);border:1px solid var(--bdr);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.22,.68,0,1.4),box-shadow .2s,background .2s,border-color .2s;
+  transform-style:preserve-3d;position:relative;overflow:hidden;}
+.wd::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#ffffff0a,transparent);border-radius:14px;pointer-events:none;}
+.wd:hover{transform:translateY(-4px) scale(1.05) rotateX(8deg);box-shadow:0 8px 20px #00000044;border-color:var(--bdr2);}
+.wd:active{transform:scale(.92) rotateX(-5deg);}
+.wd.on{background:linear-gradient(135deg,var(--acc),var(--acc3));border-color:var(--acc);
+  box-shadow:0 6px 20px var(--acc)55;transform:translateY(-2px);}
+.wd.on:hover{transform:translateY(-6px) scale(1.06) rotateX(8deg);box-shadow:0 10px 28px var(--acc)66;}
+.wd.today-marker{border-color:var(--acc)66;}
 .wd-name{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);}
-.wd-num{font-size:17px;font-weight:900;font-family:var(--mono);}
+.wd-num{font-size:18px;font-weight:900;font-family:var(--mono);}
 .wd.on .wd-name,.wd.on .wd-num{color:#fff;}
-.wd-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);display:none;}
-.wd.on .wd-dot{display:block;background:#fff;}
+.wd-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);margin-top:1px;}
+.wd.on .wd-dot{background:#fff;}
+/* Entrance animation for day cards */
+@keyframes daySlideIn{
+  from{opacity:0;transform:translateY(12px) rotateX(20deg) scale(.9);}
+  to{opacity:1;transform:translateY(0) rotateX(0) scale(1);}
+}
+.wd{animation:daySlideIn .25s cubic-bezier(.22,.68,0,1.2) both;}
 .sch-list{padding:0 14px;}
 .sch-slot{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:13px;
   margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 4px 16px #00000022;}
@@ -435,7 +448,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
 
   /* Schedule — wider */
   .sch-list{padding:0;}
-  .week-strip{padding:12px 0;}
+  .week-strip{padding:10px 0;}
 
   /* Today classes — 2 col */
   #todayClasses{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -472,7 +485,42 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opa
   #stuList{grid-template-columns:1fr 1fr 1fr;}
   #todayClasses{grid-template-columns:1fr 1fr 1fr;}
 }
-/* ── DATE & TIME PICKER STYLING ── */
+/* ── CUSTOM TIME PICKER ── */
+.tp-wrap{position:relative;}
+.tp-display{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:11px;
+  padding:12px 14px;color:var(--txt);font-size:15px;font-family:var(--mono);font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  transition:border-color .15s;}
+.tp-display:hover,.tp-display.open{border-color:var(--acc);background:var(--surf2);}
+.tp-display-val{color:var(--txt);}
+.tp-display-val.empty{color:var(--txt3);}
+.tp-display-ic{font-size:16px;opacity:.6;}
+.tp-panel{display:none;position:fixed;z-index:99999;width:260px;
+  background:var(--surf2);border:1px solid var(--acc);border-radius:14px;
+  padding:14px;box-shadow:0 8px 32px #00000088;}
+.tp-panel.open{display:block;animation:fadeUp .18s ease;}
+.tp-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;}
+.tp-col{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.tp-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--txt3);font-weight:700;}
+.tp-scroll{display:flex;flex-direction:column;gap:4px;max-height:160px;overflow-y:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:y mandatory;}
+.tp-scroll::-webkit-scrollbar{display:none;}
+.tp-item{padding:9px 14px;border-radius:9px;font-family:var(--mono);font-size:16px;font-weight:700;
+  text-align:center;cursor:pointer;transition:all .12s;color:var(--txt2);
+  scroll-snap-align:start;white-space:nowrap;}
+.tp-item:hover{background:var(--surf3);color:var(--txt);}
+.tp-item.sel{background:var(--acc);color:#fff;box-shadow:0 4px 12px var(--acc)55;transform:scale(1.05);}
+.tp-ampm{display:flex;flex-direction:column;gap:6px;}
+.tp-ampm-btn{padding:10px 16px;border-radius:9px;border:1px solid var(--bdr);background:var(--surf);
+  color:var(--txt2);font-size:13px;font-family:var(--font);cursor:pointer;font-weight:800;
+  transition:all .12s;text-align:center;}
+.tp-ampm-btn.sel{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 4px 12px var(--acc)44;}
+.tp-ampm-btn:active{transform:scale(.93);}
+.tp-sep{font-size:22px;font-weight:900;font-family:var(--mono);color:var(--acc);text-align:center;margin-top:8px;}
+.tp-done{width:100%;padding:11px;background:linear-gradient(135deg,var(--acc),var(--acc3));
+  border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:800;font-family:var(--font);
+  cursor:pointer;margin-top:12px;}
+.tp-done:active{opacity:.85;}
 input[type="date"],
 input[type="time"]{
   color-scheme: dark;
@@ -536,6 +584,8 @@ input[type="time"]{
       <div class="stt g"><div class="stt-l">Advances</div><div class="stt-v g" id="da">₹0</div><div class="stt-s">held balance</div></div>
       <div class="stt b"><div class="stt-l">This Month</div><div class="stt-v b" id="dm">0</div><div class="stt-s">classes done</div></div>
     </div>
+    <div class="s-hdr"><div class="s-ttl">🕐 Today's Availability</div><div class="s-act" onclick="nav('set');setTimeout(()=>document.getElementById('avail-section').scrollIntoView({behavior:'smooth'}),200)">Edit →</div></div>
+    <div id="availCard" style="padding:0 14px 4px;"></div>
     <div class="s-hdr"><div class="s-ttl">🎵 Today's Classes</div><div class="s-act" onclick="nav('sch')">Full Schedule →</div></div>
     <div id="feeBanner" style="padding:0 14px"></div>
     <div id="todayClasses"></div>
@@ -565,6 +615,15 @@ input[type="time"]{
 
   <!-- ══ SCHEDULE ══ -->
   <div class="pg" id="pg-sch">
+    <div style="display:flex;align-items:center;padding:10px 14px 0;gap:8px;">
+      <button onclick="shiftWeek(-7)"
+        style="width:34px;height:34px;border-radius:10px;background:var(--surf2);border:1px solid var(--bdr);color:var(--txt2);font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;">‹</button>
+      <div id="weekMonthLbl" style="flex:1;text-align:center;font-size:13px;font-weight:700;color:var(--txt2);"></div>
+      <button onclick="shiftWeek(0)"
+        style="padding:5px 12px;border-radius:8px;background:var(--acc)20;border:1px solid var(--acc)44;color:var(--acc);font-size:11px;cursor:pointer;font-weight:700;flex-shrink:0;">Today</button>
+      <button onclick="shiftWeek(7)"
+        style="width:34px;height:34px;border-radius:10px;background:var(--surf2);border:1px solid var(--bdr);color:var(--txt2);font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;">›</button>
+    </div>
     <div class="week-strip" id="weekStrip"></div>
     <div class="s-hdr">
       <div class="s-ttl" id="schDayLbl">Today's Schedule</div>
@@ -644,6 +703,15 @@ input[type="time"]{
   <!-- ══ SETTINGS ══ -->
   <div class="pg" id="pg-set">
     <div class="s-hdr"><div class="s-ttl">⚙️ Settings</div></div>
+    <div class="set-section" id="avail-section">
+      <div class="set-sec-hdr">🕐 Teaching Availability</div>
+      <div style="padding:10px 14px;font-size:11px;color:var(--txt3);border-bottom:1px solid var(--bdr);">Set your available teaching hours for each day. Shown on dashboard.</div>
+      <div id="availRows"></div>
+      <div style="padding:10px 14px;">
+        <button class="set-btn prim" onclick="saveAvailability()">Save Availability</button>
+      </div>
+    </div>
+
     <div class="set-section">
       <div class="set-sec-hdr">🎤 Teacher Info</div>
       <div class="set-row col"><div><div class="set-lbl">Teacher Name</div><div class="set-sub">Shown in WhatsApp messages</div></div><input class="set-in" id="s-teacher" placeholder="e.g. Ravi Sir" oninput="settingsChanged()"/></div>
@@ -782,6 +850,34 @@ input[type="time"]{
   </div>
 </div>
 
+<!-- RESCHEDULE MODAL -->
+<div class="ov" id="reschedOv">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-ttl" id="reschedTitle">Reschedule Class <button class="mcls" onclick="closeOv('reschedOv')">✕ close</button></div>
+    <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:10px;padding:10px 13px;margin-bottom:14px;font-size:13px;color:var(--txt2)" id="reschedInfo"></div>
+    <div class="fg"><label class="fl">New Date</label><input class="fi" id="resched-date" type="date"/></div>
+    <div class="fg">
+      <label class="fl">New Time</label>
+      <div class="tp-wrap">
+        <div class="tp-display" onclick="toggleTP('resched-time')">
+          <span class="tp-display-val empty" id="tp-resched-time-val">Select time</span>
+          <span class="tp-display-ic">🕐</span>
+        </div>
+        <div class="tp-panel" id="tp-resched-time-panel"></div>
+      </div>
+      <input type="hidden" id="resched-time"/>
+    </div>
+    <div class="fg"><label class="fl">Reason (optional)</label><input class="fi" id="resched-reason" placeholder="e.g. Teacher unavailable, holiday…"/></div>
+    <div class="fg" style="display:flex;align-items:center;gap:10px;padding:4px 0">
+      <label class="tog-sw" style="flex-shrink:0"><input type="checkbox" id="resched-notify" checked><span class="tog-sl"></span></label>
+      <div style="font-size:12px;font-weight:700;">Notify student via WhatsApp</div>
+    </div>
+    <button class="fsave" onclick="saveResched()">Reschedule ✓</button>
+    <button class="fcancel" onclick="closeOv('reschedOv')">Cancel</button>
+  </div>
+</div>
+
 <!-- ADD CLASS MODAL -->
 <div class="ov" id="addClassOv">
   <div class="modal">
@@ -800,7 +896,17 @@ input[type="time"]{
     </div>
     <div class="fg"><label class="fl">Date</label><input class="fi" id="cls-date" type="date"/></div>
     <div class="frow">
-      <div class="fg"><label class="fl">Start Time *</label><input class="fi" id="cls-time" type="time"/></div>
+      <div class="fg">
+        <label class="fl">Start Time *</label>
+        <div class="tp-wrap" id="tp-cls-time-wrap">
+          <div class="tp-display" onclick="toggleTP('cls-time')">
+            <span class="tp-display-val empty" id="tp-cls-time-val">Select time</span>
+            <span class="tp-display-ic">🕐</span>
+          </div>
+          <div class="tp-panel" id="tp-cls-time-panel"></div>
+        </div>
+        <input type="hidden" id="cls-time"/>
+      </div>
       <div class="fg"><label class="fl">Duration (mins)</label><input class="fi" id="cls-dur" type="number" placeholder="45" inputmode="numeric"/></div>
     </div>
     <div class="fg"><label class="fl">Type</label>
@@ -894,7 +1000,7 @@ const now=new Date(), curM=now.getMonth()+1, curY=now.getFullYear();
 const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 let curPg='dash', prevPg='dash', editId=null, detId=null, payId=null, hwStuId=null, progStuId=null, attStuId=null, attClsId=null;
-let chipFilter='all', repTab='month', feeType='monthly', selDay=null, settingsDirty=false;
+let chipFilter='all', repTab='month', feeType='monthly', selDay=null, settingsDirty=false, weekOffset=0;
 
 // ══════════════════════════════════════════════════
 //  UTILS
@@ -907,7 +1013,23 @@ function toast(m,t=''){
   el.textContent=m;el.className='on'+(t?' '+t:'');
   clearTimeout(el._t);el._t=setTimeout(()=>el.className='',2800);
 }
-function fmt12(t){if(!t)return '';const[h,m]=t.split(':');const hr=+h;return (hr%12||12)+':'+m+(hr<12?'AM':'PM');}
+function fmt12(t){
+  if(!t) return '';
+  const[h,m]=t.split(':');
+  const hr=+h;
+  return (hr%12||12)+':'+m+' '+(hr<12?'AM':'PM');
+}
+function timeRange(t, durMins){
+  if(!t) return '';
+  const[h,m]=t.split(':');
+  const startMins=+h*60+ +m;
+  const endMins=startMins+(parseInt(durMins)||45);
+  const eh=Math.floor(endMins/60), em=endMins%60;
+  const endTime=(eh<10?'0':'')+eh+':'+(em<10?'0':'')+em;
+  const dur=parseInt(durMins)||45;
+  const durLabel=dur>=60?(Math.floor(dur/60)+'h'+(dur%60?' '+dur%60+'m':'')):(dur+'m');
+  return fmt12(t)+' – '+fmt12(endTime)+' · '+durLabel;
+}
 function todayStr(){return now.toISOString().split('T')[0];}
 
 // ══════════════════════════════════════════════════
@@ -1133,6 +1255,7 @@ function renderDash(){
         </div>
       </div>`).join('');
   }
+  renderAvailCard();
   updateBell();
 }
 
@@ -1151,12 +1274,11 @@ function todayClassCard(c,s,cfg){
       </div>
       <div style="display:flex;align-items:center;gap:6px">
         ${s.mobile_number?`<a href="tel:${esc(s.mobile_number)}" onclick="event.stopPropagation()" style="width:30px;height:30px;border-radius:8px;background:var(--grn)18;border:1px solid var(--grn)44;display:flex;align-items:center;justify-content:center;font-size:15px;text-decoration:none">📞</a>`:''}
-        <div class="tc-time">${fmt12(c.time)}</div>
+        <div class="tc-time">${timeRange(c.time, c.duration)}</div>
       </div>
     </div>
     <div class="tc-tags">
       <span class="tag">${c.type==='online'?'🌐 Online':'📍 Offline'}</span>
-      ${c.duration?`<span class="tag">⏱ ${c.duration}min</span>`:''}
       <span class="bdg ${c.attended===true?'paid':c.attended===false?'due':''}" style="font-size:10px">
         ${c.attended===true?'✅ Present':c.attended===false?'❌ Absent':'⏳ Upcoming'}
       </span>
@@ -1170,6 +1292,7 @@ function todayClassCard(c,s,cfg){
       <button class="tc-btn att" onclick="event.stopPropagation();openAtt(${c.id},${s.id})">✅ Attendance</button>
       <button class="tc-btn hw" onclick="event.stopPropagation();openHW(${s.id})">📝 Homework</button>
       ${feeUnpaid?`<button class="tc-btn" style="border-color:var(--grn)44;color:var(--grn);background:var(--grn)0d" onclick="event.stopPropagation();openPay(${s.id})">💰 Collect</button>`:''}
+      <button class="tc-btn" style="border-color:var(--ylw)44;color:var(--ylw);background:var(--ylw)0d" onclick="event.stopPropagation();openResched(${c.id})">📅 Reschedule</button>
       <button class="tc-btn wa" onclick="event.stopPropagation();sendWA(${s.id},'class',{time:'${c.time}',meet:'${meetLink}'})">📱 Remind</button>
     </div>
   </div>`;
@@ -1222,7 +1345,7 @@ function stuCard(s){
     </div>
     ${due>0?`<div class="sc-pending"><span class="sc-pending-amt">Pending: ${curr}${NR(due)}</span><span class="sc-pending-meta">${s.fee_type==='perclass'?'per class dues':s.fee_type==='package'?'package dues':'past months'}</span></div>`:''}
     ${adv>0?`<div class="sc-advance"><span class="sc-advance-amt">Advance: ${curr}${NR(adv)}</span><span class="sc-advance-meta">held balance</span></div>`:''}
-    ${nextCls?`<div style="font-size:11px;color:var(--acc);margin-top:6px">Next: ${nextCls.date} at ${fmt12(nextCls.time)} ${nextCls.type==='online'?'🌐':'📍'}</div>`:''}
+    ${nextCls?`<div style="font-size:11px;color:var(--acc);margin-top:6px">Next: ${nextCls.date} · ${timeRange(nextCls.time, nextCls.duration)} ${nextCls.type==='online'?'🌐':'📍'}</div>`:''}
     <div class="sc-btns" onclick="event.stopPropagation()">
       ${due>0?`<button class="sc-btn pay" onclick="openPay(${s.id})">💰 Collect</button>`:''}
       ${s.mobile_number?`<a href="tel:${esc(s.mobile_number)}" class="sc-btn" style="border-color:var(--grn)44;color:var(--grn);background:var(--grn)0d;text-decoration:none">📞 Call</a>`:''}
@@ -1238,23 +1361,85 @@ function stuCard(s){
 // ══════════════════════════════════════════════════
 //  SCHEDULE PAGE
 // ══════════════════════════════════════════════════
-function renderSch(){
+// stripStart = the first date shown in the strip
+let stripStart = null;
+
+function shiftWeek(days){
+  if(days===0){
+    // Today
+    selDay=todayStr();
+    stripStart=null; // reset
+  } else {
+    const d=new Date((stripStart||todayStr())+'T12:00:00');
+    d.setDate(d.getDate()+days);
+    stripStart=d.toISOString().split('T')[0];
+    // Also move selDay with the strip
+    const sd=new Date(selDay+'T12:00:00');
+    sd.setDate(sd.getDate()+days);
+    selDay=sd.toISOString().split('T')[0];
+  }
+  renderSch(true); // true = animate scroll
+}
+
+function renderSch(scrollAnim=false){
   const strip=document.getElementById('weekStrip');
-  // Build 7-day strip centered on today
-  let days=[];
-  for(let i=-3;i<=3;i++){const d=new Date(now);d.setDate(now.getDate()+i);days.push(d);}
   if(!selDay) selDay=todayStr();
-  strip.innerHTML=days.map(d=>{
+  if(!stripStart) stripStart=todayStr();
+
+  // Show 30 days from stripStart
+  const start=new Date(stripStart+'T12:00:00');
+  let days=[];
+  for(let i=0;i<30;i++){
+    const d=new Date(start);
+    d.setDate(start.getDate()+i);
+    days.push(d);
+  }
+
+  // Month label — unique months in view
+  const months=[...new Set(days.map(d=>MO[d.getMonth()]+' '+d.getFullYear()))];
+  const monthLbl=document.getElementById('weekMonthLbl');
+  if(monthLbl) monthLbl.textContent=months.slice(0,2).join(' · ');
+
+  strip.innerHTML=days.map((d,i)=>{
     const ds=d.toISOString().split('T')[0];
     const hasCls=DB.gc().some(c=>c.date===ds);
-    return`<div class="wd${ds===selDay?' on':''}" onclick="selDay='${ds}';renderSch()">
-      <div class="wd-name">${DOW[d.getDay()]}</div>
+    const isToday=ds===todayStr();
+    const isSel=ds===selDay;
+    return`<div class="wd${isSel?' on':''}${isToday&&!isSel?' today-marker':''}"
+      id="wd-${ds}"
+      onclick="selDay='${ds}';renderSchContent();"
+      style="animation-delay:${i*0.025}s">
+      <div class="wd-name" style="${isToday&&!isSel?'color:var(--acc)':''}">${DOW[d.getDay()]}</div>
       <div class="wd-num">${d.getDate()}</div>
-      <div class="wd-dot" style="${hasCls?'display:block':''}"></div>
+      ${hasCls?`<div class="wd-dot"></div>`:`<div style="width:5px;height:5px;margin-top:1px;"></div>`}
     </div>`;
   }).join('');
+
+  // Smooth scroll to selected day — but only if it's in view, don't force center
+  if(scrollAnim){
+    setTimeout(()=>{
+      const el=document.getElementById('wd-'+selDay);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});
+    },80);
+  }
+
+  renderSchContent();
+}
+
+function renderSchContent(){
+  // Update day label
+  const isToday=selDay===todayStr();
+  const selDate=new Date(selDay+'T12:00:00');
   document.getElementById('schDayLbl').textContent=
-    selDay===todayStr()?'Today\'s Schedule':selDay;
+    isToday?'Today\'s Schedule':
+    `${DOW[selDate.getDay()]}, ${selDate.getDate()} ${MO[selDate.getMonth()]} ${selDate.getFullYear()}`;
+
+  // Update active day highlight without rebuilding strip
+  document.querySelectorAll('.wd').forEach(el=>{
+    const ds=el.id.replace('wd-','');
+    el.classList.toggle('on', ds===selDay);
+  });
+
   const cls=DB.gc().filter(c=>c.date===selDay).sort((a,b)=>a.time>b.time?1:-1);
   const stus=DB.gs();
   const cfg=getSettings();
@@ -1269,7 +1454,7 @@ function renderSch(){
     const meetLink=c.meet_link||s.meet_link||'';
     return`<div class="sch-slot ${c.type||'online'}">
       <div class="ss-top">
-        <div class="ss-time">${fmt12(c.time)}${c.duration?' · '+c.duration+'min':''}</div>
+        <div class="ss-time">${timeRange(c.time, c.duration)}</div>
         <div style="display:flex;align-items:center;gap:8px">
           <span class="bdg ${c.attended===true?'paid':c.attended===false?'due':'pkg'}" style="font-size:10px">
             ${c.attended===true?'✅ Present':c.attended===false?'❌ Absent':'⏳ Upcoming'}
@@ -1288,6 +1473,7 @@ function renderSch(){
         ${meetLink&&c.type==='online'?`<button class="tc-btn meet" onclick="openMeet('${esc(meetLink)}')">🎥 Join</button>`:''}
         <button class="tc-btn att" onclick="openAtt(${c.id},${s.id})">✅ Attend</button>
         <button class="tc-btn hw" onclick="openHW(${s.id})">📝 HW</button>
+        <button class="tc-btn" style="border-color:var(--ylw)44;color:var(--ylw);background:var(--ylw)0d" onclick="openResched(${c.id})">📅 Reschedule</button>
         <button class="tc-btn wa" onclick="sendWA(${s.id},'class',{time:'${c.time}',meet:'${meetLink}'})">📱 Remind</button>
       </div>
     </div>`;
@@ -1308,6 +1494,9 @@ function openAddClass(){
   }
   document.getElementById('cls-date').value=selDay||todayStr();
   document.getElementById('cls-time').value='';
+  document.getElementById('tp-cls-time-val').textContent='Select time';
+  document.getElementById('tp-cls-time-val').className='tp-display-val empty';
+  delete TP_STATE['cls-time'];
   document.getElementById('cls-dur').value='45';
   document.getElementById('cls-type').value='online';
   document.getElementById('cls-meet').value='';
@@ -1997,6 +2186,7 @@ function renderSettings(){
   document.getElementById('s-tpl-confirm').value=cfg.tpl_confirm||TPL_DEFAULTS.confirm;
   document.getElementById('si-stus').textContent=DB.gs().filter(s=>s.active).length;
   document.getElementById('si-pays').textContent=DB.gp().length;
+  renderAvailSettings();
   settingsDirty=false;updateSaveBtn();
 }
 
@@ -2067,7 +2257,7 @@ function confirmClearAll(){
 //  MODAL HELPERS
 // ══════════════════════════════════════════════════
 function closeOv(id){document.getElementById(id).classList.remove('on');}
-['payOv','hwOv','progOv','attOv','waOv','delOv','addClassOv'].forEach(id=>{
+['payOv','hwOv','progOv','attOv','waOv','delOv','addClassOv','reschedOv'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(e){if(e.target===this)closeOv(id);});
 });
 
@@ -2108,6 +2298,289 @@ if(DB.gs().length===0){
     {id:2,student_id:2,text:'Sa Re Ga Ma Pa Dha Ni — all 3 octaves without break. 20 repetitions.',due_date:'',created:'14/03/2025',done:true},
   ]);
   saveSettingsObj({...SET_DEFAULT,teacher:'Ravi Sir',inst:'Swar Sangam Academy',curr:'₹'});
+}
+
+// ══════════════════════════════════════════════════
+//  CUSTOM TIME PICKER
+// ══════════════════════════════════════════════════
+const TP_STATE={};
+
+function buildTPPanel(id){
+  const panel=document.getElementById(`tp-${id}-panel`);
+  if(!panel) return;
+  const st=TP_STATE[id]||{h:12,m:0,ampm:'AM'};
+  const hours=Array.from({length:12},(_,i)=>i+1);
+  const mins=Array.from({length:12},(_,i)=>i*5);
+  panel.innerHTML=`
+    <div class="tp-row">
+      <div class="tp-col">
+        <div class="tp-lbl">Hour</div>
+        <div class="tp-scroll" id="tp-${id}-h">
+          ${hours.map(h=>`<div class="tp-item${st.h===h?' sel':''}" onclick="tpSet('${id}','h',${h})">${h}</div>`).join('')}
+        </div>
+      </div>
+      <div class="tp-col">
+        <div class="tp-sep">:</div>
+        <div class="tp-scroll" id="tp-${id}-m">
+          ${mins.map(m=>`<div class="tp-item${st.m===m?' sel':''}" onclick="tpSet('${id}','m',${m})">${m<10?'0'+m:m}</div>`).join('')}
+        </div>
+      </div>
+      <div class="tp-col">
+        <div class="tp-lbl">AM/PM</div>
+        <div class="tp-ampm">
+          <div class="tp-ampm-btn${st.ampm==='AM'?' sel':''}" onclick="tpSet('${id}','ampm','AM')">AM</div>
+          <div class="tp-ampm-btn${st.ampm==='PM'?' sel':''}" onclick="tpSet('${id}','ampm','PM')">PM</div>
+        </div>
+      </div>
+    </div>
+    <button class="tp-done" onclick="tpConfirm('${id}')">Set Time ✓</button>`;
+  // Scroll selected into view
+  setTimeout(()=>{
+    const hSel=document.querySelector(`#tp-${id}-h .sel`);
+    const mSel=document.querySelector(`#tp-${id}-m .sel`);
+    if(hSel) hSel.scrollIntoView({block:'center',behavior:'smooth'});
+    if(mSel) mSel.scrollIntoView({block:'center',behavior:'smooth'});
+  },50);
+}
+
+function toggleTP(id){
+  const panel=document.getElementById(`tp-${id}-panel`);
+  const displayEl=document.getElementById(`tp-${id}-panel`)?.previousElementSibling
+    || document.querySelector(`[onclick="toggleTP('${id}')"]`);
+  if(!panel) return;
+  const isOpen=panel.classList.contains('open');
+  // Close all others
+  document.querySelectorAll('.tp-panel.open').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.tp-display.open').forEach(d=>d.classList.remove('open'));
+  if(!isOpen){
+    buildTPPanel(id);
+    panel.classList.add('open');
+    // Position panel below the display button
+    const btn=document.querySelector(`[onclick="toggleTP('${id}')"]`);
+    if(btn){
+      btn.classList.add('open');
+      const rect=btn.getBoundingClientRect();
+      const spaceBelow=window.innerHeight-rect.bottom;
+      if(spaceBelow>200){
+        panel.style.top=(rect.bottom+6)+'px';
+        panel.style.left=rect.left+'px';
+      } else {
+        panel.style.top=(rect.top-220)+'px';
+        panel.style.left=rect.left+'px';
+      }
+      // Clamp to viewport width
+      const maxLeft=window.innerWidth-270;
+      panel.style.left=Math.min(Math.max(10,rect.left),maxLeft)+'px';
+    }
+  }
+}
+
+function tpSet(id, field, val){
+  if(!TP_STATE[id]) TP_STATE[id]={h:12,m:0,ampm:'AM'};
+  TP_STATE[id][field]=val;
+  buildTPPanel(id);
+}
+
+function tpConfirm(id){
+  const st=TP_STATE[id]||{h:12,m:0,ampm:'AM'};
+  // Convert to 24h for storage
+  let h24=st.h;
+  if(st.ampm==='AM'&&st.h===12) h24=0;
+  else if(st.ampm==='PM'&&st.h!==12) h24=st.h+12;
+  const val=(h24<10?'0':'')+h24+':'+(st.m<10?'0':'')+st.m;
+  const hidden=document.getElementById(id);
+  if(hidden) hidden.value=val;
+  const display=document.getElementById(`tp-${id}-val`);
+  if(display){
+    display.textContent=st.h+':'+(st.m<10?'0':'')+st.m+' '+st.ampm;
+    display.classList.remove('empty');
+  }
+  // Close panel
+  const panel=document.getElementById(`tp-${id}-panel`);
+  const disp=panel?.previousElementSibling;
+  if(panel) panel.classList.remove('open');
+  if(disp) disp.classList.remove('open');
+}
+
+function setTPValue(id, val24){
+  // val24 = "HH:MM"
+  if(!val24) return;
+  const[h,m]=val24.split(':');
+  let hr=+h, mn=+m;
+  const ampm=hr<12?'AM':'PM';
+  const h12=hr%12||12;
+  TP_STATE[id]={h:h12,m:mn,ampm};
+  const display=document.getElementById(`tp-${id}-val`);
+  if(display){
+    display.textContent=h12+':'+(mn<10?'0':'')+mn+' '+ampm;
+    display.classList.remove('empty');
+  }
+}
+
+// Close time picker when clicking outside
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.tp-wrap')){
+    document.querySelectorAll('.tp-panel.open').forEach(p=>p.classList.remove('open'));
+    document.querySelectorAll('.tp-display.open').forEach(d=>d.classList.remove('open'));
+  }
+});
+
+// ══════════════════════════════════════════════════
+//  RESCHEDULE
+// ══════════════════════════════════════════════════
+let reschedClsId=null;
+
+function openResched(cid){
+  reschedClsId=cid;
+  const c=DB.gc().find(x=>x.id===cid);if(!c) return;
+  const s=DB.gs().find(x=>x.id===c.student_id);
+  document.getElementById('reschedTitle').textContent=`Reschedule — ${s?s.student_name:'Class'}`;
+  document.getElementById('reschedInfo').textContent=
+    `Original: ${c.date} at ${fmt12(c.time)}${c.duration?' · '+c.duration+'m':''}`;
+  document.getElementById('resched-date').value=c.date;
+  document.getElementById('resched-time').value='';
+  document.getElementById('tp-resched-time-val').textContent='Select time';
+  document.getElementById('tp-resched-time-val').className='tp-display-val empty';
+  document.getElementById('resched-reason').value='';
+  document.getElementById('resched-notify').checked=true;
+  if(c.time) setTPValue('resched-time',c.time);
+  document.getElementById('reschedOv').classList.add('on');
+}
+
+function saveResched(){
+  const c=DB.gc().find(x=>x.id===reschedClsId);if(!c) return;
+  const newDate=document.getElementById('resched-date').value;
+  const newTime=document.getElementById('resched-time').value;
+  const reason=document.getElementById('resched-reason').value;
+  const notify=document.getElementById('resched-notify').checked;
+  if(!newDate){toast('Select new date','er');return;}
+  if(!newTime){toast('Select new time','er');return;}
+  const cls=DB.gc();
+  const i=cls.findIndex(x=>x.id===reschedClsId);
+  const oldDate=cls[i].date, oldTime=cls[i].time;
+  cls[i].date=newDate;
+  cls[i].time=newTime;
+  cls[i].rescheduled=true;
+  cls[i].original_date=oldDate;
+  cls[i].original_time=oldTime;
+  DB.sc(cls);
+  closeOv('reschedOv');
+  toast('Class rescheduled ✓','ok');
+  // Notify student via WA
+  if(notify){
+    const s=DB.gs().find(x=>x.id===c.student_id);
+    const cfg=getSettings();
+    const msg=`Hello ${s?s.student_name:''}! 📅\nYour class has been rescheduled.\n\nOriginal: ${oldDate} at ${fmt12(oldTime)}\nNew: ${newDate} at ${fmt12(newTime)}${reason?'\n\nReason: '+reason:''}\n\nSorry for the inconvenience 🙏\n— ${cfg.teacher||'Teacher'}`;
+    sendWAMsg(s?s.mobile_number:'',msg);
+  }
+  selDay=newDate;renderSch();renderDash();
+}
+
+
+const DAYS_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function getAvailability(){return JSON.parse(localStorage.getItem('sp_avail')||'{}');}
+function saveAvailObj(o){localStorage.setItem('sp_avail',JSON.stringify(o));}
+
+function renderAvailSettings(){
+  const avail=getAvailability();
+  const rows=document.getElementById('availRows');
+  if(!rows) return;
+  rows.innerHTML=DAYS_FULL.map((day,i)=>{
+    const a=avail[i]||{on:i>=1&&i<=5,from:'09:00',to:'18:00'};
+    return`<div style="padding:10px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <label class="tog-sw" style="flex-shrink:0">
+        <input type="checkbox" id="av-on-${i}" ${a.on?'checked':''}>
+        <span class="tog-sl"></span>
+      </label>
+      <div style="font-size:13px;font-weight:700;min-width:85px;color:${a.on?'var(--txt)':'var(--txt3)'};">${day}</div>
+      <input type="time" class="fi" id="av-from-${i}" value="${a.from}" style="flex:1;min-width:90px;padding:8px 10px;font-size:13px;" ${a.on?'':'disabled'}/>
+      <span style="color:var(--txt3);font-size:12px;flex-shrink:0;">to</span>
+      <input type="time" class="fi" id="av-to-${i}" value="${a.to}" style="flex:1;min-width:90px;padding:8px 10px;font-size:13px;" ${a.on?'':'disabled'}/>
+    </div>`;
+  }).join('');
+  DAYS_FULL.forEach((_,i)=>{
+    const chk=document.getElementById(`av-on-${i}`);
+    if(chk) chk.addEventListener('change',()=>{
+      document.getElementById(`av-from-${i}`).disabled=!chk.checked;
+      document.getElementById(`av-to-${i}`).disabled=!chk.checked;
+    });
+  });
+}
+
+function saveAvailability(){
+  const avail={};
+  DAYS_FULL.forEach((_,i)=>{
+    avail[i]={
+      on:document.getElementById(`av-on-${i}`)?.checked||false,
+      from:document.getElementById(`av-from-${i}`)?.value||'09:00',
+      to:document.getElementById(`av-to-${i}`)?.value||'18:00',
+    };
+  });
+  saveAvailObj(avail);toast('Availability saved ✓','ok');renderDash();
+}
+
+function renderAvailCard(){
+  const el=document.getElementById('availCard');if(!el)return;
+  const avail=getAvailability();
+  const todayDow=now.getDay();
+  const a=avail[todayDow];
+  if(!a||!a.on){
+    el.innerHTML=`<div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:26px;">😴</div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:800;color:var(--txt2)">Not teaching today</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:2px">${DAYS_FULL[todayDow]} — no hours set</div></div>
+      <button onclick="nav('set');setTimeout(()=>document.getElementById('avail-section').scrollIntoView({behavior:'smooth'}),200)"
+        style="padding:6px 12px;border-radius:8px;background:var(--acc)18;border:1px solid var(--acc)44;color:var(--acc);font-size:11px;cursor:pointer;font-weight:700;">Set →</button>
+    </div>`;return;
+  }
+  const toMins=t=>{const[h,m]=t.split(':');return +h*60+ +m;};
+  const toHHMM=m=>{const h=Math.floor(m/60);const mn=m%60;return(h%12||12)+':'+(mn<10?'0':'')+mn+(h<12?' AM':' PM');};
+  const fromMins=toMins(a.from),endMins=toMins(a.to);
+  const totalMins=endMins-fromMins;
+  const todayCls=[...DB.gc().filter(c=>c.date===todayStr())].sort((x,y)=>x.time>y.time?1:-1);
+  const bookedMins=todayCls.reduce((s,c)=>s+(parseInt(c.duration)||45),0);
+  const freeMins=Math.max(0,totalMins-bookedMins);
+
+  // Build slots
+  const slots=[];let cursor=fromMins;
+  todayCls.forEach(c=>{
+    const cs=toMins(c.time),ce=cs+(parseInt(c.duration)||45);
+    const s=DB.gs().find(x=>x.id===c.student_id);
+    if(cs>cursor) slots.push({type:'free',from:cursor,to:cs});
+    slots.push({type:'class',from:cs,to:ce,label:s?s.student_name:'Class'});
+    cursor=ce;
+  });
+  if(cursor<endMins) slots.push({type:'free',from:cursor,to:endMins});
+
+  el.innerHTML=`<div style="background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <div style="font-size:13px;font-weight:800;">🕐 ${fmt12(a.from)} — ${fmt12(a.to)}</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:2px;">${DAYS_FULL[todayDow]} · ${Math.floor(totalMins/60)}h ${totalMins%60?totalMins%60+'m':''} total · ${todayCls.length} class${todayCls.length!==1?'es':''}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:20px;font-weight:900;font-family:var(--mono);color:var(--grn);">${Math.floor(freeMins/60)}h${freeMins%60?' '+freeMins%60+'m':''}</div>
+        <div style="font-size:10px;color:var(--txt3);">free today</div>
+      </div>
+    </div>
+    <!-- Timeline bar -->
+    <div style="display:flex;height:26px;border-radius:8px;overflow:hidden;gap:2px;margin-bottom:12px;">
+      ${slots.map(sl=>{const w=Math.max(1,Math.round((sl.to-sl.from)/totalMins*100));
+        return`<div style="flex:${w};background:${sl.type==='free'?'var(--grn)20':'var(--acc)33'};border:1px solid ${sl.type==='free'?'var(--grn)55':'var(--acc)66'};border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;min-width:3px;">
+          ${(sl.to-sl.from)>18?`<span style="font-size:9px;font-weight:700;color:${sl.type==='free'?'var(--grn)':'var(--acc)'};padding:0 3px;white-space:nowrap;overflow:hidden;">${sl.type==='free'?'Free':esc(sl.label.split(' ')[0])}</span>`:''}
+        </div>`;}).join('')}
+    </div>
+    <!-- Slot list -->
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      ${slots.map(sl=>`<div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:${sl.type==='free'?'var(--grn)':'var(--acc)'};"></div>
+        <div style="font-size:12px;font-weight:700;color:${sl.type==='free'?'var(--grn)':'var(--txt)'};">${toHHMM(sl.from)} – ${toHHMM(sl.to)}</div>
+        <div style="font-size:11px;color:var(--txt3);">${sl.type==='free'?'🟢 Free':'📚 '+esc(sl.label)}</div>
+        <div style="font-size:10px;color:var(--txt3);margin-left:auto;">${Math.floor((sl.to-sl.from)/60)?Math.floor((sl.to-sl.from)/60)+'h ':''} ${(sl.to-sl.from)%60?((sl.to-sl.from)%60)+'m':''}</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
 }
 
 // ══════════════════════════════════════════════════
